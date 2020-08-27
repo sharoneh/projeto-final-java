@@ -5,6 +5,7 @@
  */
 package projetofinaljava;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -13,11 +14,11 @@ import java.util.List;
  */
 public class Pedido {
     private int id;
-    private String data;
+    private LocalDate data;
     private Cliente cliente;
     private List<ItemDoPedido> itens;
 
-    public Pedido(int id, String data, Cliente cliente, List<ItemDoPedido> itens) {
+    public Pedido(int id, LocalDate data, Cliente cliente, List<ItemDoPedido> itens) {
         this.id = id;
         this.data = data;
         this.cliente = cliente;
@@ -32,11 +33,11 @@ public class Pedido {
         this.id = id;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
