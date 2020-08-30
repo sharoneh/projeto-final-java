@@ -17,27 +17,27 @@ import java.util.List;
  * @author sharonhasegawa
  */
 public class ItemDoPedidoDAO {
-    private final String stmtSelectById = "SELECT id_pedido, id_produto, produto.descricao, quantidade"
-            + "FROM item_do inner join produto"
-            + "ON item_do_pedido.id_produto = produto.id"
+    private final String stmtSelectById = "SELECT id_pedido, id_produto, produto.descricao, quantidade "
+            + "FROM item_do_pedido inner join produto "
+            + "ON item_do_pedido.id_produto = produto.id "
             + "WHERE id_pedido = ?";
     
     private final String stmtSelectList = "SELECT id_pedido, id_produto, produto.descricao, quantidade "
-            + "FROM item_do_pedido INNER JOIN produto"
-            + "ON item_do_pedido.id_produto = produto.id"
-            + "WHERE id_pedido = ?"
+            + "FROM item_do_pedido INNER JOIN produto "
+            + "ON item_do_pedido.id_produto = produto.id "
+            + "WHERE id_pedido = ? "
             + "ORDER BY id_pedido;";
     
-    private final String stmtInsert = "INSERT INTO item_do_pedido"
-            + "(id_pedido, id_produto, quantidade)"
+    private final String stmtInsert = "INSERT INTO item_do_pedido "
+            + "(id_pedido, id_produto, quantidade) "
             + "VALUES(?, ?, ?)";
     
-    private final String stmtUpdate = "UPDATE item_do_pedido"
-            + "SET id_produto = ?, quantidade = ?"
+    private final String stmtUpdate = "UPDATE item_do_pedido "
+            + "SET id_produto = ?, quantidade = ? "
             + "WHERE id_pedido = ?";
     
-    private final String stmtDelete = "DELETE FROM item_do_pedido"
-            + "WHERE id_pedido = ?"
+    private final String stmtDelete = "DELETE FROM item_do_pedido "
+            + "WHERE id_pedido = ? "
             + "AND id_produto = ?";
 
     public ItemDoPedido get(long idPedido) {
