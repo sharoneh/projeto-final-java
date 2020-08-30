@@ -6,6 +6,7 @@
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -22,6 +23,7 @@ public class TestaConexao {
     @Test
     public void testaConexao() {
         Connection conn = null;
+        PreparedStatement stmt = null;
         ResultSet res = null;
         
         try {
@@ -29,22 +31,19 @@ public class TestaConexao {
             assertEquals(true, conn.isValid(0));
             System.out.println("Conexão realizada com sucesso!");
             
-            res = conn.createStatement().executeQuery("SHOW TABLES");
+            stmt = conn.prepareStatement("SHOW TABLES");
+            res = stmt.executeQuery();
             
-            System.out.println("Tabelas no banco de dados sistema_pedidos: ");
+            String dbName = ConnectionFactory.getLocalProperties().getProperty("database_name");
+            
+            System.out.println("\nTabelas no banco de dados `"+ dbName +"`: ");
             while(res.next()) {
                System.out.println(res.getString(1));
             }
         } catch (SQLException e) {
             fail("Ocorreu um erro com a conexão ao banco de dados: " + e.getMessage());
         } finally {
-            if (res != null) {
-                ConnectionFactory.closeResultSet(res);
-            }
-            
-            if (conn != null) {
-                ConnectionFactory.closeConnection(conn);
-            }
+            ConnectionFactory.close(res, null, conn);
         }
     }
 }

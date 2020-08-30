@@ -10,23 +10,30 @@ package projetofinaljava;
  * @author sharonhasegawa
  */
 public class Cliente {
-    private int id;
+    private Long id;
     private String cpf;
     private String nome;
     private String sobrenome;
 
-    public Cliente(int id, String cpf, String nome, String sobrenome) {
+    public Cliente(String cpf, String nome, String sobrenome) {
+        this.id = -1L;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+    
+    public Cliente(Long id, String cpf, String nome, String sobrenome) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
         this.sobrenome = sobrenome;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
