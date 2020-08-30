@@ -22,7 +22,7 @@ public class ClienteDAO implements DAO<Cliente> {
     private final String stmtSelectAll = "SELECT * FROM cliente";
     private final String stmtInsert = "INSERT INTO cliente (cpf, nome, sobrenome) VALUES(?, ?, ?)";
     private final String stmtUpdate = "UPDATE cliente SET cpf = ?, nome = ?, sobrenome = ? WHERE id = ?";
-    private final String stmtDelete = "DELETE FROM cliente WHERE ID = ?";
+    private final String stmtDelete = "DELETE FROM cliente WHERE id = ?";
 
     @Override
     public Cliente get(long id) {
