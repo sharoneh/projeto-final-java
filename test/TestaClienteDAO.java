@@ -1,9 +1,13 @@
 
+import java.time.LocalDate;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 import projetofinaljava.Cliente;
 import projetofinaljava.ClienteDAO;
+import projetofinaljava.Pedido;
+import projetofinaljava.PedidoDAO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -44,5 +48,28 @@ public class TestaClienteDAO {
         // delete
         dao.deleta(cliente2);
         System.out.println("[DELETE] Cliente excluído.");
-    }    
+    }
+    
+    @Test
+    public void testaDeleteException() {
+        // não pode excluir cliente que tem pedido
+        ClienteDAO dao = new ClienteDAO();
+        Cliente cliente = new Cliente("12345678901", "Sharon", "Hasegawa");
+        dao.insere(cliente);
+        
+        PedidoDAO pedidoDao = new PedidoDAO();
+        Pedido pedido = new Pedido(-1L, LocalDate.now(), cliente, null);
+        pedidoDao.insere(pedido);
+        
+        try {
+            dao.deleta(cliente);
+            fail("Devia lançar exceção e não permitir excluir cliente com pedido.");
+        } catch (RuntimeException e) {
+            assertEquals("O cliente não pode ser excluído porque ele tem pedidos registrados.", e.getMessage());
+        }
+        
+        // deletar registros de teste
+        pedidoDao.deleta(pedido);
+        dao.deleta(cliente);
+    }
 }

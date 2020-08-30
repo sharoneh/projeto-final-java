@@ -145,10 +145,25 @@ public class ClienteDAO implements DAO<Cliente> {
     public void deleta(Cliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
+        PreparedStatement stmtPedidosDoCliente = null;
         ResultSet res = null;
         
         try {
             conn = ConnectionFactory.getConnection();
+            
+            // verificar se o cliente tem pedidos
+            String query = "SELECT pedido.id, nome "
+                    + "FROM cliente INNER JOIN pedido "
+                    + "ON cliente.id = pedido.id_cliente "
+                    + "WHERE cliente.id = ?";
+            
+            stmtPedidosDoCliente = conn.prepareStatement(query);
+            stmtPedidosDoCliente.setLong(1, cliente.getId());
+            res = stmtPedidosDoCliente.executeQuery();
+            
+            if (res.next()) {
+                throw new RuntimeException("O cliente não pode ser excluído porque ele tem pedidos registrados.");
+            }
             
             stmt = conn.prepareStatement(stmtDelete);
             stmt.setLong(1, cliente.getId());
