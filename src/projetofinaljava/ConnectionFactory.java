@@ -17,8 +17,9 @@ public class ConnectionFactory {
         String dbName = props.getProperty("database_name");
         String dbUser = props.getProperty("database_user");
         String dbPassword = props.getProperty("database_password");
+        String connParams = props.getProperty("connection_params");
 
-        String url = "jdbc:mysql://localhost:3306/" + dbName + "?zeroDateTimeBehavior=CONVERT_TO_NULL";
+        String url = "jdbc:mysql://localhost:3306/" + dbName + "?" + connParams;
         return DriverManager.getConnection(url, dbUser, dbPassword);
     }
     
