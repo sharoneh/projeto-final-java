@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS item_do_pedido, produto, cliente, pedido;
 -- Criação das tabelas
 CREATE TABLE cliente (
     id INT(11) AUTO_INCREMENT,
-    cpf VARCHAR(15) NOT NULL,
+    cpf VARCHAR(15) UNIQUE NOT NULL,
     nome VARCHAR(30) NOT NULL,
     sobrenome VARCHAR(50) NOT NULL,
     CONSTRAINT pk_cliente PRIMARY KEY(id)
