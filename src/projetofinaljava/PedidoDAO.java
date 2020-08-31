@@ -6,10 +6,12 @@
 package projetofinaljava;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,18 +19,24 @@ import java.util.List;
  *
  * @author sharonhasegawa
  */
-public class ClienteDAO implements DAO<Cliente> {
-    private final String stmtSelectById = "SELECT * FROM cliente WHERE id = ?";
-    private final String stmtSelectAll = "SELECT * FROM cliente";
-    private final String stmtInsert = "INSERT INTO cliente (cpf, nome, sobrenome) VALUES(?, ?, ?)";
-    private final String stmtUpdate = "UPDATE cliente SET cpf = ?, nome = ?, sobrenome = ? WHERE id = ?";
-    private final String stmtDelete = "DELETE FROM cliente WHERE id = ?";
+public class PedidoDAO implements DAO<Pedido> {
+    private final String stmtSelectById = "SELECT * FROM pedido WHERE id = ?";
+    
+    private final String stmtSelectAll = "SELECT pedido.id, id_cliente, cliente.cpf, cliente.nome, cliente.sobrenome, data "
+            + "FROM pedido INNER JOIN cliente "
+            + "ON id_cliente = cliente.id";
+    
+    private final String stmtInsert = "INSERT INTO pedido (id_cliente, data) VALUES(?, ?)";
+    private final String stmtUpdate = "UPDATE pedido SET id_cliente = ?, data = ? WHERE id = ?";
+    private final String stmtDelete = "DELETE FROM pedido WHERE id = ?";
 
     @Override
-    public Cliente get(long id) {
+    public Pedido get(long id) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
+        ClienteDAO clienteDao = new ClienteDAO();
+        ItemDoPedidoDAO itemPedidoDao = new ItemDoPedidoDAO();
         
         try {
             conn = ConnectionFactory.getConnection();
@@ -42,21 +50,24 @@ public class ClienteDAO implements DAO<Cliente> {
                 return null;
             }
             
-            String cpf = res.getString("cpf");
-            String nome = res.getString("nome");
-            String sobrenome = res.getString("sobrenome");
-
-            Cliente cliente = new Cliente(id, cpf, nome, sobrenome);
-            return cliente;
+            long idCliente = res.getLong("id_cliente");
+            LocalDate data = res.getDate("data").toLocalDate();
+            
+            List<ItemDoPedido> itens = itemPedidoDao.getLista(id);
+            
+            Cliente cliente = clienteDao.get(idCliente);
+            Pedido pedido = new Pedido(id, data, cliente, itens);
+            
+            return pedido;
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar um cliente: " + e.getMessage());
+            throw new RuntimeException("Erro ao buscar um pedido: " + e.getMessage());
         } finally {
             ConnectionFactory.close(res, stmt, conn);
         }
     }
 
     @Override
-    public List<Cliente> getLista() {
+    public List<Pedido> getLista() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
@@ -70,28 +81,33 @@ public class ClienteDAO implements DAO<Cliente> {
                 return null;
             }
             
-            List<Cliente> clientes = new ArrayList();
+            List<Pedido> pedidos = new ArrayList();
             
             do {
                 Long id = res.getLong("id");
+                LocalDate data = res.getDate("data").toLocalDate();
+                
+                Long idCliente = res.getLong("id_cliente");
                 String cpf = res.getString("cpf");
                 String nome = res.getString("nome");
                 String sobrenome = res.getString("sobrenome");
                 
-                Cliente cliente = new Cliente(id, cpf, nome, sobrenome);
-                clientes.add(cliente);
+                Cliente cliente = new Cliente(idCliente, cpf, nome, sobrenome);
+                
+                Pedido pedido = new Pedido(id, data, cliente, null);
+                pedidos.add(pedido);
             } while (res.next());
             
-            return clientes;
+            return pedidos;
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar a lista de clientes: " + e.getMessage());
+            throw new RuntimeException("Erro ao buscar a lista de pedidos: " + e.getMessage());
         } finally {
             ConnectionFactory.close(res, stmt, conn);
         }
     }
 
     @Override
-    public void insere(Cliente cliente) {
+    public void insere(Pedido pedido) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
@@ -100,25 +116,24 @@ public class ClienteDAO implements DAO<Cliente> {
             conn = ConnectionFactory.getConnection();
             
             stmt = conn.prepareStatement(stmtInsert, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, cliente.getCpf());
-            stmt.setString(2, cliente.getNome());
-            stmt.setString(3, cliente.getSobrenome());
+            stmt.setLong(1, pedido.getCliente().getId());
+            stmt.setDate(2, Date.valueOf(pedido.getData()));
             
             stmt.execute();
             res = stmt.getGeneratedKeys();
             res.next();
             
             long id = res.getLong(1);
-            cliente.setId(id);
+            pedido.setId(id);
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao inserir um cliente: " + e.getMessage());
+            throw new RuntimeException("Erro ao inserir um pedido: " + e.getMessage());
         } finally {
             ConnectionFactory.close(res, stmt, conn);
         }
     }
 
     @Override
-    public void atualiza(Cliente cliente) {
+    public void atualiza(Pedido pedido) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
@@ -128,51 +143,36 @@ public class ClienteDAO implements DAO<Cliente> {
             
             stmt = conn.prepareStatement(stmtUpdate);
             
-            stmt.setString(1, cliente.getCpf());
-            stmt.setString(2, cliente.getNome());
-            stmt.setString(3, cliente.getSobrenome());
-            stmt.setLong(4, cliente.getId());
+            stmt.setLong(1, pedido.getCliente().getId());
+            stmt.setDate(2, Date.valueOf(pedido.getData()));
+            stmt.setLong(3, pedido.getId());
             
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao atualizar um cliente: " + e.getMessage());
+            throw new RuntimeException("Erro ao atualizar um pedido: " + e.getMessage());
         } finally {
             ConnectionFactory.close(res, stmt, conn);
         }
     }
 
     @Override
-    public void deleta(Cliente cliente) {
+    public void deleta(Pedido pedido) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        PreparedStatement stmtPedidosDoCliente = null;
         ResultSet res = null;
         
         try {
             conn = ConnectionFactory.getConnection();
             
-            // verificar se o cliente tem pedidos
-            String query = "SELECT pedido.id, nome "
-                    + "FROM cliente INNER JOIN pedido "
-                    + "ON cliente.id = pedido.id_cliente "
-                    + "WHERE cliente.id = ?";
-            
-            stmtPedidosDoCliente = conn.prepareStatement(query);
-            stmtPedidosDoCliente.setLong(1, cliente.getId());
-            res = stmtPedidosDoCliente.executeQuery();
-            
-            if (res.next()) {
-                throw new RuntimeException("O cliente não pode ser excluído porque ele tem pedidos registrados.");
-            }
-            
             stmt = conn.prepareStatement(stmtDelete);
-            stmt.setLong(1, cliente.getId());
+            stmt.setLong(1, pedido.getId());
             
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao excluir um cliente: " + e.getMessage());
+            throw new RuntimeException("Erro ao excluir um pedido: " + e.getMessage());
         } finally {
             ConnectionFactory.close(res, stmt, conn);
         }
     }
+    
 }
