@@ -125,6 +125,15 @@ public class PedidoDAO implements DAO<Pedido> {
             
             long id = res.getLong(1);
             pedido.setId(id);
+            
+            List<ItemDoPedido> itens = pedido.getItens();
+            if (!itens.isEmpty()) {
+                ItemDoPedidoDAO itemDao = new ItemDoPedidoDAO();
+                
+                for (ItemDoPedido item : itens) {
+                    itemDao.insere(id, item);
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao inserir um pedido: " + e.getMessage());
         } finally {
