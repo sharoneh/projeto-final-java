@@ -93,7 +93,7 @@ public class ModeloTabelaProdutos extends AbstractTableModel {
         this.fireTableDataChanged();        
     }
 
-    public void limparProdutos() {
+    public void limparTabela() {
         int indice = lista.size()-1;
         if(indice<0)
             indice=0;

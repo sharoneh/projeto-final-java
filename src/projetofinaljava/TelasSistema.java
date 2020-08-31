@@ -1,9 +1,10 @@
+package projetofinaljava;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import projetofinaljava.ModeloTabelaProdutos;
-import projetofinaljava.Produto;
-import projetofinaljava.ProdutoDAO;
+import javax.swing.JTextField;
+
+
 
 
 /*
@@ -16,13 +17,15 @@ import projetofinaljava.ProdutoDAO;
  *
  * @author levyc
  */
-public class NovaTabelaProduto extends javax.swing.JFrame {
+public class TelasSistema extends javax.swing.JFrame {
+
     private ModeloTabelaProdutos modeloTabela = new ModeloTabelaProdutos();
+    private int linhaSelecionada=-1;
 
     /**
      * Creates new form NovaTabelaProduto
      */
-    public NovaTabelaProduto() {
+    public TelasSistema() {
         initComponents();
     }
 
@@ -42,8 +45,9 @@ public class NovaTabelaProduto extends javax.swing.JFrame {
         scrollPanelTabela = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         listarProdutos = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        excluirProduto = new javax.swing.JButton();
+        editarProduto = new javax.swing.JButton();
+        limparTabela = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,17 +97,39 @@ public class NovaTabelaProduto extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Editar (NA)");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        excluirProduto.setText("Excluir");
+        excluirProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                excluirProdutoMouseClicked(evt);
+            }
+        });
+        excluirProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                excluirProdutoActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Excluir (NA)");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        editarProduto.setText("Editar (NA)");
+        editarProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editarProdutoMouseClicked(evt);
+            }
+        });
+        editarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                editarProdutoActionPerformed(evt);
+            }
+        });
+
+        limparTabela.setText("Limpar");
+        limparTabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                limparTabelaMouseClicked(evt);
+            }
+        });
+        limparTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparTabelaActionPerformed(evt);
             }
         });
 
@@ -112,31 +138,26 @@ public class NovaTabelaProduto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPanelTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(botaoNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(listarProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(descricaoLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(botaoNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(29, 29, 29)
-                                        .addComponent(descricaoLabel))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(listarProdutos)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton2))
-                                    .addComponent(caixaDeTextoDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(scrollPanelTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)))
+                                    .addComponent(caixaDeTextoDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(editarProduto))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(excluirProduto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(limparTabela)
+                                .addGap(27, 27, 27)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -147,14 +168,16 @@ public class NovaTabelaProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listarProdutos)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(excluirProduto)
+                    .addComponent(limparTabela))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descricaoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(caixaDeTextoDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(botaoNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoNovoProduto)
+                    .addComponent(editarProduto))
                 .addContainerGap())
         );
 
@@ -166,14 +189,12 @@ public class NovaTabelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoNovoProdutoActionPerformed
 
     private void botaoNovoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoNovoProdutoMouseClicked
-        try {
             String descricao = caixaDeTextoDescricao.getText();
             Produto p = new Produto(0L, descricao);
             ProdutoDAO dao = new ProdutoDAO();
             dao.insere(p);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+            modeloTabela.adicionaProduto(p);      
+        
 
     }//GEN-LAST:event_botaoNovoProdutoMouseClicked
 
@@ -188,16 +209,54 @@ public class NovaTabelaProduto extends javax.swing.JFrame {
     private void listarProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listarProdutosMouseClicked
         List<Produto> lista = new ProdutoDAO().getLista();
         modeloTabela.setListaProdutos(lista);
-        
+
     }//GEN-LAST:event_listarProdutosMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void excluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirProdutoActionPerformed
+        ProdutoDAO p = new ProdutoDAO();
+        int[] linhasSelecionadas = tabela.getSelectedRows();
+        List<Produto> listaExcluir = new ArrayList();
+        for (int i = 0; i < linhasSelecionadas.length; i++) {
+            Produto produto = modeloTabela.getProduto(linhasSelecionadas[i]);
+            p.deleta(produto);
+            listaExcluir.add(produto);
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        }
+        for (Produto produto : listaExcluir) {
+            modeloTabela.deleteProduto(produto);
+        }    
+
+    }//GEN-LAST:event_excluirProdutoActionPerformed
+
+    private void editarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarProdutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_editarProdutoActionPerformed
+
+    private void excluirProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirProdutoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_excluirProdutoMouseClicked
+
+    private void editarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarProdutoMouseClicked
+       if (linhaSelecionada !=-1) {
+            Produto produto = modeloTabela.getProduto(linhaSelecionada);
+            produto.setDescricao(caixaDeTextoDescricao.getText());
+            ProdutoDAO dao = null;            
+            dao = new ProdutoDAO();
+            dao.atualiza(produto);
+
+            modeloTabela.fireTableRowsUpdated(linhaSelecionada, linhaSelecionada);
+       }
+
+
+    }//GEN-LAST:event_editarProdutoMouseClicked
+
+    private void limparTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparTabelaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_limparTabelaActionPerformed
+
+    private void limparTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparTabelaMouseClicked
+        modeloTabela.limparTabela();
+    }//GEN-LAST:event_limparTabelaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -213,23 +272,36 @@ public class NovaTabelaProduto extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovaTabelaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovaTabelaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovaTabelaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovaTabelaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelasSistema.class
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelasSistema.class
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelasSistema.class
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelasSistema.class
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovaTabelaProduto().setVisible(true);
+                new TelasSistema().setVisible(true);
             }
         });
     }
@@ -238,9 +310,10 @@ public class NovaTabelaProduto extends javax.swing.JFrame {
     private javax.swing.JButton botaoNovoProduto;
     private javax.swing.JTextField caixaDeTextoDescricao;
     private javax.swing.JLabel descricaoLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton editarProduto;
+    private javax.swing.JButton excluirProduto;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton limparTabela;
     private javax.swing.JButton listarProdutos;
     private javax.swing.JScrollPane scrollPanelTabela;
     private javax.swing.JTable tabela;

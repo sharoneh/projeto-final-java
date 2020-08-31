@@ -15,7 +15,7 @@ public class Cliente {
     private String nome;
     private String sobrenome;
 
-    public Cliente(String cpf, String nome, String sobrenome) {
+    public Cliente(String cpf, String nome, String sobrenome) {        
         this.id = -1L;
         this.cpf = cpf;
         this.nome = nome;
