@@ -18,6 +18,13 @@ public class Pedido {
     private Cliente cliente;
     private List<ItemDoPedido> itens;
     
+    public Pedido(LocalDate data, Cliente cliente, List<ItemDoPedido> itens) {
+        this.id = -1L;
+        this.data = data;
+        this.cliente = cliente;
+        this.itens = itens;
+    }
+    
     public Pedido(long id, LocalDate data, Cliente cliente, List<ItemDoPedido> itens) {
         this.id = id;
         this.data = data;

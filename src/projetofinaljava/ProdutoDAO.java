@@ -22,9 +22,9 @@ public class ProdutoDAO implements DAO<Produto> {
 
     private final String stmtSelectById = "SELECT * FROM produto WHERE id = ?";
     private final String stmtSelectAll = "SELECT * FROM produto";
-    private final String stmtInsert = "INSERT INTO produto (descricao) VALUES(?, ?, ?)";
-    private final String stmtUpdate = "UPDATE cliente SET descricao = ?";
-    private final String stmtDelete = "DELETE FROM cliente WHERE ID = ?";
+    private final String stmtInsert = "INSERT INTO produto(descricao) VALUES(?)";
+    private final String stmtUpdate = "UPDATE produto SET descricao = ? WHERE id = ?";
+    private final String stmtDelete = "DELETE FROM produto WHERE id = ?";
 
     @Override
     public Produto get(long id) {

@@ -23,7 +23,6 @@ CREATE TABLE pedido (
     CONSTRAINT pk_pedido PRIMARY KEY(id),
     CONSTRAINT fk_cliente FOREIGN KEY(id_cliente)
         REFERENCES cliente(id)
-        ON UPDATE CASCADE
 );
 
 CREATE TABLE item_do_pedido (
@@ -32,11 +31,9 @@ CREATE TABLE item_do_pedido (
     quantidade INT(11) NOT NULL,
     CONSTRAINT pk_pedido_item PRIMARY KEY(id_pedido, id_produto),
     CONSTRAINT fk_pedido FOREIGN KEY(id_pedido)
-        REFERENCES pedido(id)
-        ON UPDATE CASCADE,
+        REFERENCES pedido(id),
     CONSTRAINT fk_item FOREIGN KEY(id_produto)
         REFERENCES produto(id)
-        ON UPDATE CASCADE
 );
 
 -- População do banco de dados

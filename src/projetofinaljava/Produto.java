@@ -15,11 +15,11 @@ public class Produto {
     private String descricao;  
     
     public Produto(String descricao) {        
-    this.descricao = descricao;
+        this.descricao = descricao;
     } 
     
     public Produto(long id, String descricao) {
-        this.id = -1L;
+        this.id = id;
         this.descricao = descricao;
     }    
 
@@ -39,6 +39,5 @@ public class Produto {
         this.descricao = descricao;
     }
     
-   
 }
    

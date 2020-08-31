@@ -27,7 +27,7 @@ public class TestaPedidoDAO {
         Cliente cliente = new Cliente("12345678901", "Sharon", "Hasegawa");
         clienteDao.insere(cliente);
         
-        Pedido pedido1 = new Pedido(-1L, LocalDate.now(), cliente, null);
+        Pedido pedido1 = new Pedido(LocalDate.now(), cliente, null);
         
         // insert
         dao.insere(pedido1);
