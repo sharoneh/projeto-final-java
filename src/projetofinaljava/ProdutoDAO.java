@@ -73,7 +73,7 @@ public class ProdutoDAO implements DAO<Produto> {
             List<Produto> produtos = new ArrayList();
 
             do {
-                Long id = res.getLong("id");
+                long id = res.getLong("id");
                 String descricao = res.getString("descricao");
 
                 Produto produto = new Produto(id, descricao);
@@ -150,7 +150,7 @@ public class ProdutoDAO implements DAO<Produto> {
             
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao excluir um produto: " + e.getMessage());
+            throw new RuntimeException(e);
         } finally {
             ConnectionFactory.close(res, stmt, conn);
         }
