@@ -10,15 +10,24 @@ package projetofinaljava;
  * @author sharonhasegawa
  */
 public class Produto {
-    private int id;
-    private String descricao;
+    private long id;
+    private String descricao;  
     
-    public void Produto(int id, String descricao) {
-        this.id = id;
+    public void Produto(String descricao) {        
         this.descricao = descricao;
-    }
+    } 
+
+    public void Produto(Long id, String descricao) {
+        this.id = -1L;
+        this.descricao = descricao;
+    }    
     
-    public int getId() {
+    /*  public void Produto(long id, String descricao) {
+    this.id = id;
+    this.descricao = descricao;
+    }*/
+    
+    public long getId() {
         return this.id;
     }
     
@@ -26,7 +35,7 @@ public class Produto {
         return this.descricao;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     
@@ -34,3 +43,4 @@ public class Produto {
         this.descricao = descricao;
     }
 }
+   
