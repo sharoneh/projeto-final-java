@@ -17,19 +17,42 @@ import java.util.List;
  *
  * @author levyc
  */
-
 // git add . ->  git commit -m "atualizacao dao produto" -> git push   
-public class ProdutoDAO implements DAO <Produto>{
-    
+public class ProdutoDAO implements DAO<Produto> {
+
     private final String stmtSelectById = "SELECT * FROM produto WHERE id = ?";
     private final String stmtSelectAll = "SELECT * FROM produto";
-    private final String stmtInsert = "INSERT INTO cliente (cpf, nome, sobrenome) VALUES(?, ?, ?)";
-    private final String stmtUpdate = "UPDATE cliente SET cpf = ?, nome = ?, sobrenome = ? WHERE id = ?";
+    private final String stmtInsert = "INSERT INTO produto (descricao) VALUES(?, ?, ?)";
+    private final String stmtUpdate = "UPDATE cliente SET descricao = ?";
     private final String stmtDelete = "DELETE FROM cliente WHERE ID = ?";
 
     @Override
     public Produto get(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Template
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+
+        try {
+            conn = ConnectionFactory.getConnection();
+
+            stmt = conn.prepareStatement(stmtSelectById);
+            stmt.setLong(1, id);
+
+            res = stmt.executeQuery();
+
+            if (!res.next()) {
+                return null;
+            }
+
+            String descricao = res.getString("descricao");
+
+            Produto produto = new Produto(id, descricao);
+            return produto;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar um cliente: " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(res, stmt, conn);
+        }
     }
 
     @Override
@@ -37,27 +60,27 @@ public class ProdutoDAO implements DAO <Produto>{
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
-        
+
         try {
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtSelectAll);
             res = stmt.executeQuery();
-            
+
             if (!res.next()) {
                 return null;
             }
-            
-            List<Produto> produto = new ArrayList();
-            
+
+            List<Produto> produtos = new ArrayList();
+
             do {
                 Long id = res.getLong("id");
-                String descricao = res.getString("descricao");                
-                
+                String descricao = res.getString("descricao");
+
                 Produto produto = new Produto(id, descricao);
-                produto.add(produto);
+                produtos.add(produto);
             } while (res.next());
-            
-            return produto;
+
+            return produtos;
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar a lista de produtos: " + e.getMessage());
         } finally {
@@ -66,21 +89,71 @@ public class ProdutoDAO implements DAO <Produto>{
     }
 
     @Override
-    public void insere(Produto t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insere(Produto produto) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            
+            stmt = conn.prepareStatement(stmtInsert, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, produto.getDescricao());
+            
+            
+            stmt.execute();
+            res = stmt.getGeneratedKeys();
+            res.next();
+            
+            long id = res.getLong(1);
+            produto.setId(id);
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao inserir um produto: " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(res, stmt, conn);
+        }
     }
 
     @Override
-    public void atualiza(Produto t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void atualiza(Produto produto) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            
+            stmt = conn.prepareStatement(stmtUpdate);
+            
+            stmt.setString(1, produto.getDescricao());            
+            stmt.setLong(2, produto.getId());
+            
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar um produto: " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(res, stmt, conn);
+        }
     }
 
     @Override
-    public void deleta(Produto t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleta(Produto produto) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            
+            stmt = conn.prepareStatement(stmtDelete);
+            stmt.setLong(1, produto.getId());
+            
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao excluir um produto: " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(res, stmt, conn);
+        }
     }
-    
-    
-    
-    
+
 }
