@@ -13,60 +13,67 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author levyc
  */
-public class ModeloTabelaProdutos extends AbstractTableModel {
-    private String [] colunas=new String[] {"ID","Descrição"};
-    private List<Produto> lista = new ArrayList();
+public class ModeloTabelaCliente extends AbstractTableModel{
+    private String [] colunas=new String[] {"ID","CPF","Nome","Sobrenome"};
+    private List<Cliente> lista = new ArrayList();
     
-    public ModeloTabelaProdutos(List<Produto> lista){
+    public ModeloTabelaCliente(List<Cliente> lista){
         this.lista=lista;
     }
     
-    public ModeloTabelaProdutos(){
+    public ModeloTabelaCliente(){
         
     }
     
-    @Override
     public int getRowCount(){
         return this.lista.size();
     }
     
-        @Override
     public int getColumnCount() {
         return this.colunas.length;
     }
 
-    @Override
     public String getColumnName(int index) {
         return this.colunas[index];
     }
 
-    @Override
     public boolean isCellEditable(int row, int column) {
         return false;       
     }
 
-    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Produto produtos = lista.get(rowIndex);
+        Cliente clientes = lista.get(rowIndex);
         switch (columnIndex) {
-            case 0: return produtos.getId();
-            case 1: return produtos.getDescricao();            
-            default : return null;
+            case 0:
+                return clientes.getId();
+            case 1:
+                return clientes.getCpf();
+            case 2:
+                return clientes.getNome();
+            case 3:
+                return clientes.getSobrenome();
+
+            default:
+                return null;
         }
     }
 
-    @Override
     public void setValueAt(Object value, int row, int col) {
         try {
-            Produto produtos = lista.get(row);
+            Cliente clientes = lista.get(row);
             switch (col) {
                 case 0:
-                    produtos.setId((Long) value);
+                    clientes.setId((Long) value);
                     break;
                 case 1:
-                    produtos.setDescricao((String) value);
+                    clientes.setCpf((String) value);
                     break;
-                
+                case 2:
+                    clientes.setNome((String) value);
+                    break;
+                case 3:
+                    clientes.setSobrenome((String) value);
+                    break;
                 default:
             }
             this.fireTableCellUpdated(row, col);
@@ -75,20 +82,20 @@ public class ModeloTabelaProdutos extends AbstractTableModel {
         }
     }
 
-    public boolean deleteProduto(Produto p) {
-        int linha = this.lista.indexOf(p);
-        boolean result = this.lista.remove(p);
+    public boolean deleteCliente(Cliente c) {
+        int linha = this.lista.indexOf(c);
+        boolean result = this.lista.remove(c);
         this.fireTableRowsDeleted(linha,linha);
         return result;
     }
 
-    public void adicionaProduto(Produto p) {
-        this.lista.add(p);        
+    public void adicionaCliente(Cliente c) {
+        this.lista.add(c);        
         this.fireTableRowsInserted(lista.size()-1,lista.size()-1);
     }
 
-    public void setListaProdutos(List<Produto> produtos) {
-        this.lista = produtos;
+    public void setListaClientes(List<Cliente> clientes) {
+        this.lista = clientes;
         this.fireTableDataChanged();        
     }
 
@@ -97,15 +104,10 @@ public class ModeloTabelaProdutos extends AbstractTableModel {
         if(indice<0)
             indice=0;
         this.lista = new ArrayList();
-        this.fireTableRowsDeleted(0,indice);//update JTable
+        this.fireTableRowsDeleted(0,indice);
     }
 
-    public Produto getProduto(int linha){
+    public Cliente getCliente(int linha){
         return lista.get(linha);
     }
-    
 }
-
-    
-    
-
