@@ -7,6 +7,7 @@ package projetofinaljava;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -140,7 +141,7 @@ public class PanelProduto extends javax.swing.JPanel {
             dao.insere(p);
             modeloTabela.adicionaProduto(p);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
         }
     }//GEN-LAST:event_botaoNovoProdutoActionPerformed
 
@@ -149,7 +150,7 @@ public class PanelProduto extends javax.swing.JPanel {
             List<Produto> lista = new ProdutoDAO().getLista();
             modeloTabela.setListaProdutos(lista);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
         }
     }//GEN-LAST:event_listarProdutosActionPerformed
 
@@ -169,7 +170,7 @@ public class PanelProduto extends javax.swing.JPanel {
                 modeloTabela.deleteProduto(produto);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
         }
     }//GEN-LAST:event_excluirProdutoActionPerformed
 
@@ -184,7 +185,7 @@ public class PanelProduto extends javax.swing.JPanel {
 
             modeloTabela.fireTableRowsUpdated(linhaSelecionada, linhaSelecionada);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
         }
     }//GEN-LAST:event_editarProdutoActionPerformed
 
@@ -194,14 +195,18 @@ public class PanelProduto extends javax.swing.JPanel {
             linhaSelecionada = -1;
             caixaDeTextoDescricao.setText("");
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
         }
     }//GEN-LAST:event_limparTabelaActionPerformed
 
     private void tabelaProdutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutoMousePressed
-        linhaSelecionada = tabelaProduto.rowAtPoint(evt.getPoint());
-        Produto produto = modeloTabela.getProduto(linhaSelecionada);
-        caixaDeTextoDescricao.setText(produto.getDescricao());
+        try {
+            linhaSelecionada = tabelaProduto.rowAtPoint(evt.getPoint());
+            Produto produto = modeloTabela.getProduto(linhaSelecionada);
+            caixaDeTextoDescricao.setText(produto.getDescricao());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
+        }
     }//GEN-LAST:event_tabelaProdutoMousePressed
 
 

@@ -7,6 +7,7 @@ package projetofinaljava;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,7 +52,7 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
         scrollPedido = new javax.swing.JScrollPane();
         tabelaItens = new javax.swing.JTable();
         listaProdutos = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        excluirItem = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         descricaoProduto = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -96,10 +97,10 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Excluir Item");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        excluirItem.setText("Excluir Item");
+        excluirItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                excluirItemActionPerformed(evt);
             }
         });
 
@@ -148,7 +149,7 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(scrollPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(excluirItem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel7)
@@ -204,7 +205,7 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton2))
+                    .addComponent(excluirItem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,10 +217,14 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabelaProdutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutoMousePressed
-        linhaSelecionada = tabelaProduto.rowAtPoint(evt.getPoint());
-        produtoSelecionado = modeloTabelaProdutos.getProduto(linhaSelecionada);
-        descricaoProduto.setText(produtoSelecionado.getDescricao());
-        quantProduto.setText("1");
+        try {
+            linhaSelecionada = tabelaProduto.rowAtPoint(evt.getPoint());
+            produtoSelecionado = modeloTabelaProdutos.getProduto(linhaSelecionada);
+            descricaoProduto.setText(produtoSelecionado.getDescricao());
+            quantProduto.setText("1");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
+        }
     }//GEN-LAST:event_tabelaProdutoMousePressed
 
     private void botaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarActionPerformed
@@ -235,7 +240,7 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
 
             exibeNomeCliente.setText(nome + " " + sobrenome);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
         }
     }//GEN-LAST:event_botaoPesquisarActionPerformed
 
@@ -267,7 +272,7 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
                 modeloTabelaItens.adicionaItem(item);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
         }
     }//GEN-LAST:event_adicionarProdutoActionPerformed
 
@@ -276,11 +281,11 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
             List<Produto> lista = new ProdutoDAO().getLista();
             modeloTabelaProdutos.setListaProdutos(lista);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
         }
     }//GEN-LAST:event_listaProdutosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void excluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirItemActionPerformed
         if (itemSelecionado == null) return;
         
         ItemDoPedidoDAO dao = new ItemDoPedidoDAO();
@@ -288,17 +293,17 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
             dao.deleta(pedido.getId(), itemSelecionado);
             modeloTabelaItens.removeItem(itemSelecionado);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_excluirItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarProduto;
     private javax.swing.JButton botaoPesquisar;
     private javax.swing.JLabel descricaoProduto;
+    private javax.swing.JButton excluirItem;
     private javax.swing.JLabel exibeNomeCliente;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -27,7 +27,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        manterClientes = new javax.swing.JTabbedPane();
+        abas = new javax.swing.JTabbedPane();
         panelCliente1 = new projetofinaljava.PanelCliente();
         panelProduto1 = new projetofinaljava.PanelProduto();
         panelIncluirPedido2 = new projetofinaljava.PanelIncluirPedido();
@@ -35,21 +35,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        manterClientes.addTab("Manter clientes", panelCliente1);
-        manterClientes.addTab("Manter produtos", panelProduto1);
-        manterClientes.addTab("Incluir pedido", panelIncluirPedido2);
-        manterClientes.addTab("Listar pedido", panelListarPedido1);
+        abas.addTab("Manter clientes", panelCliente1);
+        abas.addTab("Manter produtos", panelProduto1);
+        abas.addTab("Incluir pedido", panelIncluirPedido2);
+        abas.addTab("Listar pedido", panelListarPedido1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(manterClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 724, Short.MAX_VALUE)
+            .addComponent(abas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 724, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(manterClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(abas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -92,7 +92,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane manterClientes;
+    private javax.swing.JTabbedPane abas;
     private projetofinaljava.PanelCliente panelCliente1;
     private projetofinaljava.PanelIncluirPedido panelIncluirPedido2;
     private projetofinaljava.PanelListarPedido panelListarPedido1;

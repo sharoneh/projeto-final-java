@@ -6,6 +6,7 @@
 package projetofinaljava;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -117,15 +118,16 @@ public class PanelListarPedido extends javax.swing.JPanel {
                     .addComponent(cpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(listaPedidos))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(nomeClienteSelecionado, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nomeClienteSelecionado, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(pedidoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pedidoId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
@@ -150,19 +152,23 @@ public class PanelListarPedido extends javax.swing.JPanel {
             
             modeloTabelaPedidos.setListaPedidos(lista);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaPedidos, e.getMessage());
         }
     }//GEN-LAST:event_listaPedidosActionPerformed
 
     private void tabelaPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPedidosMousePressed
-        int linha = tabelaPedidos.rowAtPoint(evt.getPoint());
-        pedidoSelecionado = modeloTabelaPedidos.getPedido(linha);
-        pedidoId.setText(Long.toString(pedidoSelecionado.getId()));
-        
-        ItemDoPedidoDAO dao = new ItemDoPedidoDAO();
-        List<ItemDoPedido> itens = dao.getLista(pedidoSelecionado.getId());
-        
-        modeloTabelaItens.setListaItens(itens);
+        try {
+            int linha = tabelaPedidos.rowAtPoint(evt.getPoint());
+            pedidoSelecionado = modeloTabelaPedidos.getPedido(linha);
+            pedidoId.setText(Long.toString(pedidoSelecionado.getId()));
+
+            ItemDoPedidoDAO dao = new ItemDoPedidoDAO();
+            List<ItemDoPedido> itens = dao.getLista(pedidoSelecionado.getId());
+
+            modeloTabelaItens.setListaItens(itens);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(tabelaPedidos, e.getMessage());
+        }
     }//GEN-LAST:event_tabelaPedidosMousePressed
 
 

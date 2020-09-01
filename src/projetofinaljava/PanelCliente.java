@@ -7,6 +7,7 @@ package projetofinaljava;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -165,7 +166,7 @@ public class PanelCliente extends javax.swing.JPanel {
             List<Cliente> lista = new ClienteDAO().getLista();
             modeloTabelaCliente.setListaClientes(lista);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaCliente, e.getMessage());
         }
     }//GEN-LAST:event_listarClientesActionPerformed
 
@@ -185,7 +186,7 @@ public class PanelCliente extends javax.swing.JPanel {
                 modeloTabelaCliente.deleteCliente(cliente);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaCliente, e.getMessage());
         }
     }//GEN-LAST:event_excluirClienteActionPerformed
 
@@ -200,7 +201,7 @@ public class PanelCliente extends javax.swing.JPanel {
             caixaNome.setText("");
             caixaSobrenome.setText("");
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaCliente, e.getMessage());
         }
     }//GEN-LAST:event_limparListaClientesActionPerformed
 
@@ -215,16 +216,16 @@ public class PanelCliente extends javax.swing.JPanel {
             dao.insere(c);
             modeloTabelaCliente.adicionaCliente(c);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaCliente, e.getMessage());
         }
     }//GEN-LAST:event_novoClienteActionPerformed
 
     private void atualizaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaClienteActionPerformed
         if (linhaSelecionada == -1) return;
         try {
-            this.clienteSelecionado.setCpf(caixaCpf.getText());
-            this.clienteSelecionado.setNome(caixaNome.getText());
-            this.clienteSelecionado.setSobrenome(caixaSobrenome.getText());
+            clienteSelecionado.setCpf(caixaCpf.getText());
+            clienteSelecionado.setNome(caixaNome.getText());
+            clienteSelecionado.setSobrenome(caixaSobrenome.getText());
 
             ClienteDAO dao = null;
             dao = new ClienteDAO();
@@ -232,17 +233,21 @@ public class PanelCliente extends javax.swing.JPanel {
 
             modeloTabelaCliente.fireTableRowsUpdated(linhaSelecionada, linhaSelecionada);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabelaCliente, e.getMessage());
         }
     }//GEN-LAST:event_atualizaClienteActionPerformed
 
     private void tabelaClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMousePressed
-        this.linhaSelecionada = tabelaCliente.rowAtPoint(evt.getPoint());
-        this.clienteSelecionado = modeloTabelaCliente.getCliente(this.linhaSelecionada);
-        
-        caixaCpf.setText(this.clienteSelecionado.getCpf());
-        caixaNome.setText(this.clienteSelecionado.getNome());
-        caixaSobrenome.setText(this.clienteSelecionado.getSobrenome());
+        try {
+            linhaSelecionada = tabelaCliente.rowAtPoint(evt.getPoint());
+            clienteSelecionado = modeloTabelaCliente.getCliente(this.linhaSelecionada);
+
+            caixaCpf.setText(this.clienteSelecionado.getCpf());
+            caixaNome.setText(this.clienteSelecionado.getNome());
+            caixaSobrenome.setText(this.clienteSelecionado.getSobrenome());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(tabelaCliente, e.getMessage());
+        }
     }//GEN-LAST:event_tabelaClienteMousePressed
 
 
