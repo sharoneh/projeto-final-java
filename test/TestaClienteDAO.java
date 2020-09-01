@@ -32,7 +32,7 @@ public class TestaClienteDAO {
         // update
         cliente1.setNome("Nome atualizado");
         cliente1.setSobrenome("Sobrenome atualizado");
-        cliente1.setCpf("CPF atualizado");
+        cliente1.setCpf("00000000000");
         
         dao.atualiza(cliente1);
         System.out.println("[UPDATE] Cliente atualizado.");
@@ -40,6 +40,10 @@ public class TestaClienteDAO {
         // get
         Cliente cliente2 = dao.get(cliente1.getId());
         System.out.println("[SELECT] Cliente buscado.");
+        
+        // get by cpf
+        dao.get("00000000000");
+        System.out.println("[SELECT] Cliente buscado pelo CPF.");
         
         // list
         List<Cliente> clientes = dao.getLista();

@@ -19,6 +19,7 @@ import java.util.List;
  */
 public class ClienteDAO implements DAO<Cliente> {
     private final String stmtSelectById = "SELECT * FROM cliente WHERE id = ?";
+    private final String stmtSelectByCpf = "SELECT * FROM cliente WHERE cpf = ?";
     private final String stmtSelectAll = "SELECT * FROM cliente";
     private final String stmtInsert = "INSERT INTO cliente (cpf, nome, sobrenome) VALUES(?, ?, ?)";
     private final String stmtUpdate = "UPDATE cliente SET cpf = ?, nome = ?, sobrenome = ? WHERE id = ?";
@@ -50,6 +51,36 @@ public class ClienteDAO implements DAO<Cliente> {
             return cliente;
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar um cliente: " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(res, stmt, conn);
+        }
+    }
+    
+    public Cliente get(String cpf) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            
+            stmt = conn.prepareStatement(stmtSelectByCpf);
+            stmt.setString(1, cpf);
+            
+            res = stmt.executeQuery();
+            
+            if (!res.next()) {
+                return null;
+            }
+            
+            long id = res.getLong("id");
+            String nome = res.getString("nome");
+            String sobrenome = res.getString("sobrenome");
+
+            Cliente cliente = new Cliente(id, cpf, nome, sobrenome);
+            return cliente;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar um cliente pelo CPF: " + e.getMessage());
         } finally {
             ConnectionFactory.close(res, stmt, conn);
         }
