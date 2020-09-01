@@ -89,6 +89,10 @@ public class ProdutoDAO implements DAO<Produto> {
 
     @Override
     public void insere(Produto produto) {
+        if (produto.getDescricao().isEmpty()) {
+            throw new RuntimeException("O campo descrição é obrigatório.");
+        }
+        
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
@@ -115,6 +119,10 @@ public class ProdutoDAO implements DAO<Produto> {
 
     @Override
     public void atualiza(Produto produto) {
+        if (produto.getDescricao().isEmpty()) {
+            throw new RuntimeException("O campo descrição é obrigatório.");
+        }
+        
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet res = null;

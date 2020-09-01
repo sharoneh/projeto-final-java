@@ -123,6 +123,10 @@ public class ClienteDAO implements DAO<Cliente> {
 
     @Override
     public void insere(Cliente cliente) {
+        if (cliente.getCpf().isEmpty() || cliente.getNome().isEmpty() || cliente.getSobrenome().isEmpty()) {
+            throw new RuntimeException("Os campos CPF, nome e descrição são obrigatórios.");
+        }
+        
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
@@ -150,6 +154,10 @@ public class ClienteDAO implements DAO<Cliente> {
 
     @Override
     public void atualiza(Cliente cliente) {
+        if (cliente.getCpf().isEmpty() || cliente.getNome().isEmpty() || cliente.getSobrenome().isEmpty()) {
+            throw new RuntimeException("Os campos CPF, nome e descrição são obrigatórios.");
+        }
+        
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
