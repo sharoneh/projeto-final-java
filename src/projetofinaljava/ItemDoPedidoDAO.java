@@ -19,7 +19,7 @@ import java.util.List;
 public class ItemDoPedidoDAO {
     private final String stmtSelectById = ""
             + "SELECT id_pedido, id_produto, produto.descricao, quantidade "
-            + "FROM item_do_pedido inner join produto "
+            + "FROM item_do_pedido INNER JOIN produto "
             + "ON item_do_pedido.id_produto = produto.id "
             + "WHERE id_pedido = ?";
     
