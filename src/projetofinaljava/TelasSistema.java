@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
 
-
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author levyc
@@ -21,7 +17,7 @@ public class TelasSistema extends javax.swing.JFrame {
 
     private ModeloTabelaProdutos modeloTabela = new ModeloTabelaProdutos();
     private ModeloTabelaCliente modeloTabelaCliente = new ModeloTabelaCliente();
-    private int linhaSelecionada=-1;    
+    private int linhaSelecionada = -1;
 
     /**
      * Creates new form NovaTabelaProduto
@@ -39,9 +35,6 @@ public class TelasSistema extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jFrame1 = new javax.swing.JFrame();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         scrolTabelaCliente = new javax.swing.JScrollPane();
@@ -56,7 +49,7 @@ public class TelasSistema extends javax.swing.JFrame {
         excluirCliente = new javax.swing.JButton();
         limparListaClientes = new javax.swing.JButton();
         novoCliente = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        atualizaCliente = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         botaoNovoProduto = new javax.swing.JButton();
         descricaoLabel = new javax.swing.JLabel();
@@ -67,31 +60,22 @@ public class TelasSistema extends javax.swing.JFrame {
         excluirProduto = new javax.swing.JButton();
         editarProduto = new javax.swing.JButton();
         limparTabela = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jPanel4 = new javax.swing.JPanel();
+        scrollProdutoPedido = new javax.swing.JScrollPane();
+        tabelaProduto = new javax.swing.JTable();
+        pegarCpf = new javax.swing.JTextField();
+        botaoPesquisar = new javax.swing.JButton();
+        exibeNomeCliente = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        exibeProduto = new javax.swing.JLabel();
+        scrollPedido = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        listaProdutos = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        salvarPedido = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,7 +123,12 @@ public class TelasSistema extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Atualizar (NA)");
+        atualizaCliente.setText("Atualizar (NA)");
+        atualizaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                atualizaClienteMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -148,7 +137,7 @@ public class TelasSistema extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrolTabelaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(scrolTabelaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
@@ -160,7 +149,7 @@ public class TelasSistema extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(novoCliente)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton5))
+                                .addComponent(atualizaCliente))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(sobrenomeLabel)
@@ -178,7 +167,7 @@ public class TelasSistema extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrolTabelaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrolTabelaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listarClientes)
@@ -199,8 +188,8 @@ public class TelasSistema extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(novoCliente)
-                    .addComponent(jButton5))
-                .addContainerGap(86, Short.MAX_VALUE))
+                    .addComponent(atualizaCliente))
+                .addGap(20, 20, 20))
         );
 
         jTabbedPane2.addTab("Cliente", jPanel2);
@@ -281,9 +270,9 @@ public class TelasSistema extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPanelTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                    .addComponent(scrollPanelTabela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(botaoNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -297,8 +286,7 @@ public class TelasSistema extends javax.swing.JFrame {
                                 .addComponent(excluirProduto)
                                 .addGap(18, 18, 18)
                                 .addComponent(limparTabela)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,13 +311,137 @@ public class TelasSistema extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Produtos", jPanel3);
 
-        jMenu1.setText("Cadastro");
-        jMenuBar1.add(jMenu1);
+        tabelaProduto.setModel(modeloTabela);
+        scrollProdutoPedido.setViewportView(tabelaProduto);
 
-        jMenu2.setText("Pedidos");
-        jMenuBar1.add(jMenu2);
+        pegarCpf.setText("Digite CPF");
 
-        setJMenuBar(jMenuBar1);
+        botaoPesquisar.setText("Pesquisar");
+        botaoPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoPesquisarMouseClicked(evt);
+            }
+        });
+
+        exibeNomeCliente.setText("exibenome");
+
+        jLabel1.setText("Produto");
+
+        jTextField1.setText("Quant..");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("OK");
+
+        exibeProduto.setText("exibeproduto");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        scrollPedido.setViewportView(jTable2);
+
+        listaProdutos.setText("Listar Produtos");
+        listaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaProdutosMouseClicked(evt);
+            }
+        });
+
+        jButton2.setText("Excluir Item");
+
+        salvarPedido.setText("Salvar");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollProdutoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(listaProdutos))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(exibeNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(74, 74, 74)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
+                                .addComponent(jButton1))
+                            .addComponent(exibeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jButton2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(salvarPedido))
+                                .addComponent(scrollPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(pegarCpf)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(listaProdutos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pegarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoPesquisar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exibeNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(exibeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scrollPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(salvarPedido)))
+                    .addComponent(scrollProdutoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Incluir Pedido", jPanel4);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 802, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 481, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Listar Pedido", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -343,9 +455,9 @@ public class TelasSistema extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(1, 1, 1)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -356,12 +468,12 @@ public class TelasSistema extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoNovoProdutoActionPerformed
 
     private void botaoNovoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoNovoProdutoMouseClicked
-            String descricao = caixaDeTextoDescricao.getText();
-            Produto p = new Produto(0L, descricao);
-            ProdutoDAO dao = new ProdutoDAO();
-            dao.insere(p);
-            modeloTabela.adicionaProduto(p);      
-        
+        String descricao = caixaDeTextoDescricao.getText();
+        Produto p = new Produto(0L, descricao);
+        ProdutoDAO dao = new ProdutoDAO();
+        dao.insere(p);
+        modeloTabela.adicionaProduto(p);
+
 
     }//GEN-LAST:event_botaoNovoProdutoMouseClicked
 
@@ -391,7 +503,7 @@ public class TelasSistema extends javax.swing.JFrame {
         }
         for (Produto produto : listaExcluir) {
             modeloTabela.deleteProduto(produto);
-        }    
+        }
 
     }//GEN-LAST:event_excluirProdutoActionPerformed
 
@@ -404,15 +516,15 @@ public class TelasSistema extends javax.swing.JFrame {
     }//GEN-LAST:event_excluirProdutoMouseClicked
 
     private void editarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarProdutoMouseClicked
-       if (linhaSelecionada !=-1) {
+        if (linhaSelecionada != -1) {
             Produto produto = modeloTabela.getProduto(linhaSelecionada);
             produto.setDescricao(caixaDeTextoDescricao.getText());
-            ProdutoDAO dao = null;            
+            ProdutoDAO dao = null;
             dao = new ProdutoDAO();
             dao.atualiza(produto);
 
             modeloTabela.fireTableRowsUpdated(linhaSelecionada, linhaSelecionada);
-       }
+        }
 
 
     }//GEN-LAST:event_editarProdutoMouseClicked
@@ -432,14 +544,14 @@ public class TelasSistema extends javax.swing.JFrame {
     private void novoClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novoClienteMouseClicked
         String cpf = caixaCpf.getText();
         String nome = caixaNome.getText();
-        String sobrenome = caixaSobrenome.getText();     
-        
+        String sobrenome = caixaSobrenome.getText();
+
         Cliente c = new Cliente(0L, cpf, nome, sobrenome);
         ClienteDAO dao = new ClienteDAO();
         dao.insere(c);
-        modeloTabelaCliente.adicionaCliente(c);      
-               
-        
+        modeloTabelaCliente.adicionaCliente(c);
+
+
     }//GEN-LAST:event_novoClienteMouseClicked
 
     private void listarClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listarClientesMouseClicked
@@ -458,15 +570,45 @@ public class TelasSistema extends javax.swing.JFrame {
         }
         for (Cliente cliente : listaExcluir) {
             modeloTabelaCliente.deleteCliente(cliente);
-        }        
-        
-        
-        
+        }
+
     }//GEN-LAST:event_excluirClienteMouseClicked
 
     private void limparListaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparListaClientesMouseClicked
         modeloTabelaCliente.limparTabela();
     }//GEN-LAST:event_limparListaClientesMouseClicked
+
+    private void atualizaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atualizaClienteMouseClicked
+        if (linhaSelecionada != -1) {
+            Cliente cliente = modeloTabelaCliente.getCliente(linhaSelecionada);
+            cliente.setCpf(caixaCpf.getText());
+            cliente.setNome(caixaNome.getText());
+            cliente.setSobrenome(caixaSobrenome.getText());
+
+            ClienteDAO dao = null;
+            dao = new ClienteDAO();
+            dao.atualiza(cliente);
+
+            modeloTabela.fireTableRowsUpdated(linhaSelecionada, linhaSelecionada);
+        }
+
+
+    }//GEN-LAST:event_atualizaClienteMouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void listaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaProdutosMouseClicked
+        List<Produto> lista = new ProdutoDAO().getLista();
+        modeloTabela.setListaProdutos(lista);      
+        
+    }//GEN-LAST:event_listaProdutosMouseClicked
+
+    private void botaoPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoPesquisarMouseClicked
+                            
+        
+    }//GEN-LAST:event_botaoPesquisarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -482,28 +624,24 @@ public class TelasSistema extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TelasSistema.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(TelasSistema.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelasSistema.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelasSistema.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -517,7 +655,9 @@ public class TelasSistema extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton atualizaCliente;
     private javax.swing.JButton botaoNovoProduto;
+    private javax.swing.JButton botaoPesquisar;
     private javax.swing.JTextField caixaCpf;
     private javax.swing.JTextField caixaDeTextoDescricao;
     private javax.swing.JTextField caixaNome;
@@ -527,26 +667,34 @@ public class TelasSistema extends javax.swing.JFrame {
     private javax.swing.JButton editarProduto;
     private javax.swing.JButton excluirCliente;
     private javax.swing.JButton excluirProduto;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JFrame jFrame1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel exibeNomeCliente;
+    private javax.swing.JLabel exibeProduto;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton limparListaClientes;
     private javax.swing.JButton limparTabela;
+    private javax.swing.JButton listaProdutos;
     private javax.swing.JButton listarClientes;
     private javax.swing.JButton listarProdutos;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JButton novoCliente;
+    private javax.swing.JTextField pegarCpf;
+    private javax.swing.JButton salvarPedido;
     private javax.swing.JScrollPane scrolTabelaCliente;
     private javax.swing.JScrollPane scrollPanelTabela;
+    private javax.swing.JScrollPane scrollPedido;
+    private javax.swing.JScrollPane scrollProdutoPedido;
     private javax.swing.JLabel sobrenomeLabel;
     private javax.swing.JTable tabela;
     private javax.swing.JTable tabelaCliente;
+    private javax.swing.JTable tabelaProduto;
     // End of variables declaration//GEN-END:variables
 }
