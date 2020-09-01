@@ -23,7 +23,8 @@ public class PedidoDAO implements DAO<Pedido> {
 
     private final String stmtSelectById = "SELECT * FROM pedido WHERE id = ?";
 
-    private final String stmtSelectAll = "SELECT pedido.id, id_cliente, cliente.cpf, cliente.nome, cliente.sobrenome, data "
+    private final String stmtSelectAll = ""
+            + "SELECT pedido.id, id_cliente, cliente.cpf, cliente.nome, cliente.sobrenome, data "
             + "FROM pedido INNER JOIN cliente "
             + "ON id_cliente = cliente.id "
             + "ORDER BY pedido.id";

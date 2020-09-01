@@ -16,8 +16,7 @@ import java.util.List;
 /**
  *
  * @author levyc
- */
-// git add . ->  git commit -m "atualizacao dao produto" -> git push   
+ */ 
 public class ProdutoDAO implements DAO<Produto> {
 
     private final String stmtSelectById = "SELECT * FROM produto WHERE id = ?";

@@ -51,8 +51,6 @@
                               <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="scrollPedido" min="-2" pref="396" max="-2" attributes="0"/>
-                                  <Component id="excluirItem" alignment="1" min="-2" pref="111" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -63,6 +61,10 @@
                                           <Component id="exibeNomeCliente" min="-2" pref="188" max="-2" attributes="0"/>
                                           <Component id="pedidoId" min="-2" pref="188" max="-2" attributes="0"/>
                                       </Group>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="excluirItem" alignment="1" min="-2" pref="111" max="-2" attributes="0"/>
+                                      <Component id="scrollPedido" alignment="0" min="-2" pref="373" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
