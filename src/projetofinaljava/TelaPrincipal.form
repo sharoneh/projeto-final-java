@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="manterClientes" alignment="1" pref="543" max="32767" attributes="0"/>
+          <Component id="manterClientes" alignment="1" pref="724" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -54,6 +54,15 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Manter produtos">
                 <Property name="tabTitle" type="java.lang.String" value="Manter produtos"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="projetofinaljava.PanelIncluirPedido" name="panelIncluirPedido2">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Incluir pedido">
+                <Property name="tabTitle" type="java.lang.String" value="Incluir pedido"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

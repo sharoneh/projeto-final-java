@@ -83,5 +83,36 @@ public class ModeloTabelaItemPedido extends AbstractTableModel {
         boolean result = this.lista.remove(item);
         this.fireTableRowsDeleted(linha,linha);
         return result;
-    }    
+    }
+    
+    public boolean removeItem(ItemDoPedido item) {
+        int linha = this.lista.indexOf(item);
+        boolean result = this.lista.remove(item);
+        this.fireTableRowsDeleted(linha, linha);
+        return result;
+    }
+
+    public void adicionaItem(ItemDoPedido item) {
+        this.lista.add(item);
+        this.fireTableRowsInserted(lista.size() - 1, lista.size() - 1);
+    }
+
+    public void setListaItens(List<ItemDoPedido> itens) {
+        this.lista = itens;
+        this.fireTableDataChanged();        
+    }
+
+    public void limparTabela() {
+        int indice = lista.size() - 1;
+        if(indice < 0) {
+            indice = 0;
+        }
+        
+        this.lista = new ArrayList();
+        this.fireTableRowsDeleted(0, indice);
+    }
+
+    public ItemDoPedido getItem(int linha){
+        return lista.get(linha);
+    }
 }
