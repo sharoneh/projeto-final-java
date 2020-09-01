@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTextField;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -209,6 +208,13 @@ public class TelasSistema extends javax.swing.JFrame {
         });
 
         descricaoLabel.setText("Descrição: ");
+
+        tabela.setModel(modeloTabela);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
 
         tabela.setModel(modeloTabela);
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
