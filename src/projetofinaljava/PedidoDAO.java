@@ -78,11 +78,11 @@ public class PedidoDAO implements DAO<Pedido> {
             stmt = conn.prepareStatement(stmtSelectAll);
             res = stmt.executeQuery();
 
-            if (!res.next()) {
-                return null;
-            }
-
             List<Pedido> pedidos = new ArrayList();
+            
+            if (!res.next()) {
+                return pedidos;
+            }
 
             do {
                 Long id = res.getLong("id");
@@ -94,6 +94,47 @@ public class PedidoDAO implements DAO<Pedido> {
                 String sobrenome = res.getString("sobrenome");
 
                 Cliente cliente = new Cliente(idCliente, cpf, nome, sobrenome);
+
+                Pedido pedido = new Pedido(id, data, cliente, null);
+                pedidos.add(pedido);
+            } while (res.next());
+
+            return pedidos;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar a lista de pedidos: " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(res, stmt, conn);
+        }
+    }
+    
+    public List<Pedido> getListaPorCliente(String cpf) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(stmtSelectAll);
+            res = stmt.executeQuery();
+
+            List<Pedido> pedidos = new ArrayList();
+            
+            if (!res.next()) {
+                return pedidos;
+            }
+
+            do {
+                Long id = res.getLong("id");
+                LocalDate data = res.getDate("data").toLocalDate();
+
+//                Long idCliente = res.getLong("id_cliente");
+//                String cpf = res.getString("cpf");
+//                String nome = res.getString("nome");
+//                String sobrenome = res.getString("sobrenome");
+//
+//                Cliente cliente = new Cliente(idCliente, cpf, nome, sobrenome);
+                ClienteDAO clienteDao = new ClienteDAO();
+                Cliente cliente = clienteDao.get(cpf);
 
                 Pedido pedido = new Pedido(id, data, cliente, null);
                 pedidos.add(pedido);
