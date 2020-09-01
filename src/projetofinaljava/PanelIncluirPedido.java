@@ -51,7 +51,7 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
         scrollPedido = new javax.swing.JScrollPane();
         tabelaItens = new javax.swing.JTable();
         listaProdutos = new javax.swing.JButton();
-        excluirItemPedido = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         descricaoProduto = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -87,11 +87,6 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
         });
 
         tabelaItens.setModel(modeloTabelaItens);
-        tabelaItens.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabelaItensMousePressed(evt);
-            }
-        });
         scrollPedido.setViewportView(tabelaItens);
 
         listaProdutos.setText("Listar Produtos");
@@ -101,10 +96,10 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
             }
         });
 
-        excluirItemPedido.setText("Excluir Item");
-        excluirItemPedido.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Excluir Item");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                excluirItemPedidoActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -153,7 +148,7 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(scrollPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(excluirItemPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel7)
@@ -177,13 +172,12 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(botaoPesquisar)
-                        .addComponent(pegarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(listaProdutos))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoPesquisar)
+                    .addComponent(pegarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(listaProdutos)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -210,7 +204,7 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(excluirItemPedido))
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -229,9 +223,12 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
     }//GEN-LAST:event_tabelaProdutoMousePressed
 
     private void botaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarActionPerformed
+        String cpf = pegarCpf.getText();
+        if (cpf.isEmpty()) return;
+        
         try {
             ClienteDAO dao = new ClienteDAO();
-            clienteSelecionado = dao.get(pegarCpf.getText());
+            clienteSelecionado = dao.get(cpf);
 
             String nome = clienteSelecionado.getNome();
             String sobrenome = clienteSelecionado.getSobrenome();
@@ -283,7 +280,7 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_listaProdutosActionPerformed
 
-    private void excluirItemPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirItemPedidoActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (itemSelecionado == null) return;
         
         ItemDoPedidoDAO dao = new ItemDoPedidoDAO();
@@ -293,20 +290,15 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_excluirItemPedidoActionPerformed
-
-    private void tabelaItensMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaItensMousePressed
-        linhaItemSelecionada = tabelaProduto.rowAtPoint(evt.getPoint());
-        itemSelecionado = modeloTabelaItens.getItem(linhaItemSelecionada);
-    }//GEN-LAST:event_tabelaItensMousePressed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarProduto;
     private javax.swing.JButton botaoPesquisar;
     private javax.swing.JLabel descricaoProduto;
-    private javax.swing.JButton excluirItemPedido;
     private javax.swing.JLabel exibeNomeCliente;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

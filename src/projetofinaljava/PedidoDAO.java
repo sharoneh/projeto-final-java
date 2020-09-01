@@ -25,7 +25,8 @@ public class PedidoDAO implements DAO<Pedido> {
 
     private final String stmtSelectAll = "SELECT pedido.id, id_cliente, cliente.cpf, cliente.nome, cliente.sobrenome, data "
             + "FROM pedido INNER JOIN cliente "
-            + "ON id_cliente = cliente.id";
+            + "ON id_cliente = cliente.id "
+            + "ORDER BY pedido.id";
 
     private final String stmtInsert = "INSERT INTO pedido (id_cliente, data) VALUES(?, ?)";
     private final String stmtUpdate = "UPDATE pedido SET id_cliente = ?, data = ? WHERE id = ?";

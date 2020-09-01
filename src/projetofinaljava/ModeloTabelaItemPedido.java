@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
  * @author levyc
  */
 public class ModeloTabelaItemPedido extends AbstractTableModel {
-    private String [] colunas = new String[] { "ID", "Descricao", "Quantidade" };
+    private String [] colunas = new String[] { "Produto", "Quantidade" };
     private List<ItemDoPedido> lista;
     
     public ModeloTabelaItemPedido(List<ItemDoPedido> lista){
@@ -45,11 +45,9 @@ public class ModeloTabelaItemPedido extends AbstractTableModel {
         ItemDoPedido item = lista.get(rowIndex);        
         switch (columnIndex) {
             case 0:
-                return item.getProduto().getId();
-            case 1:
                 return item.getProduto().getDescricao();
-            case 2:
-                return item.getQuantidade();            
+            case 1:
+                return item.getQuantidade();
             default:
                 return null;
         }
@@ -61,12 +59,9 @@ public class ModeloTabelaItemPedido extends AbstractTableModel {
             ItemDoPedido item = lista.get(row);
             switch (col) {
                 case 0:
-                    item.getProduto().setId((Long) value);
-                    break;
-                case 1:
                     item.getProduto().setDescricao((String) value);
                     break;
-                case 2:
+                case 1:
                     item.setQuantidade((long) value);
                     break;
                 default:
