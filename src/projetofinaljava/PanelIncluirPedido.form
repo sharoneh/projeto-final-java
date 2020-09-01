@@ -198,6 +198,9 @@
               <Connection code="modeloTabelaItens" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaItensMousePressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

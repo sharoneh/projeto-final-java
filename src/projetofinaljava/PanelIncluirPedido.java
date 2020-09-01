@@ -88,6 +88,11 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
         });
 
         tabelaItens.setModel(modeloTabelaItens);
+        tabelaItens.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabelaItensMousePressed(evt);
+            }
+        });
         scrollPedido.setViewportView(tabelaItens);
 
         listaProdutos.setText("Listar Produtos");
@@ -297,6 +302,11 @@ public class PanelIncluirPedido extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(tabelaProduto, e.getMessage());
         }
     }//GEN-LAST:event_excluirItemActionPerformed
+
+    private void tabelaItensMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaItensMousePressed
+        linhaItemSelecionada = tabelaItens.rowAtPoint(evt.getPoint());
+        itemSelecionado = modeloTabelaItens.getItem(linhaItemSelecionada);
+    }//GEN-LAST:event_tabelaItensMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
