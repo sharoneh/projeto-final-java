@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  * @author sharonhasegawa
  */
 public class ModeloTabelaPedidos extends AbstractTableModel {
-    private String [] colunas = new String[] { "ID", "Nome do cliente", "Data" };
+    private String [] colunas = new String[] { "Pedido ID", "Data" };
     private List<Pedido> lista;
     
     public ModeloTabelaPedidos(List<Pedido> lista){
@@ -51,8 +51,7 @@ public class ModeloTabelaPedidos extends AbstractTableModel {
         Pedido pedido = lista.get(rowIndex);
         switch (columnIndex) {
             case 0: return pedido.getId();
-            case 1: return pedido.getCliente().getNome();
-            case 2: return pedido.getData();
+            case 1: return pedido.getData();
             default : return null;
         }
     }
@@ -66,9 +65,6 @@ public class ModeloTabelaPedidos extends AbstractTableModel {
                     pedido.setId((Long) value);
                     break;
                 case 1:
-                    pedido.getCliente().setNome((String) value);
-                    break;
-                case 2:
                     pedido.setData((LocalDate) value);
                     break;
                 default:
