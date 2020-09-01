@@ -14,15 +14,15 @@ import javax.swing.table.AbstractTableModel;
  * @author levyc
  */
 public class ModeloTabelaProdutos extends AbstractTableModel {
-    private String [] colunas=new String[] {"ID","Descrição"};
-    private List<Produto> lista = new ArrayList();
+    private String [] colunas = new String[] { "ID", "Descrição" };
+    private List<Produto> lista;
     
     public ModeloTabelaProdutos(List<Produto> lista){
-        this.lista=lista;
+        this.lista = lista;
     }
     
     public ModeloTabelaProdutos(){
-        
+        this.lista = new ArrayList();
     }
     
     @Override
@@ -30,7 +30,7 @@ public class ModeloTabelaProdutos extends AbstractTableModel {
         return this.lista.size();
     }
     
-        @Override
+    @Override
     public int getColumnCount() {
         return this.colunas.length;
     }
@@ -103,7 +103,6 @@ public class ModeloTabelaProdutos extends AbstractTableModel {
     public Produto getProduto(int linha){
         return lista.get(linha);
     }
-    
 }
 
     

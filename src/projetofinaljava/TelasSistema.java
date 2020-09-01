@@ -20,6 +20,8 @@ public class TelasSistema extends javax.swing.JFrame {
     private ModeloTabelaProdutos modeloTabela = new ModeloTabelaProdutos();
     private ModeloTabelaCliente modeloTabelaCliente = new ModeloTabelaCliente();
     private ModeloTabelaPedidos modeloTabelaPedidos = new ModeloTabelaPedidos();
+    private ModeloTabelaItemPedido modeloTabelaItens = new ModeloTabelaItemPedido();
+    
     private int linhaSelecionada = -1;
     private Cliente cliente;
 
@@ -40,7 +42,7 @@ public class TelasSistema extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
+        abaCliente = new javax.swing.JPanel();
         scrolTabelaCliente = new javax.swing.JScrollPane();
         tabelaCliente = new javax.swing.JTable();
         cpfLabel = new javax.swing.JLabel();
@@ -54,7 +56,8 @@ public class TelasSistema extends javax.swing.JFrame {
         limparListaClientes = new javax.swing.JButton();
         novoCliente = new javax.swing.JButton();
         atualizaCliente = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        abaProduto = new javax.swing.JPanel();
         botaoNovoProduto = new javax.swing.JButton();
         descricaoLabel = new javax.swing.JLabel();
         caixaDeTextoDescricao = new javax.swing.JTextField();
@@ -64,7 +67,7 @@ public class TelasSistema extends javax.swing.JFrame {
         excluirProduto = new javax.swing.JButton();
         editarProduto = new javax.swing.JButton();
         limparTabela = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        abaIncluirPedido = new javax.swing.JPanel();
         scrollProdutoPedido = new javax.swing.JScrollPane();
         tabelaProduto = new javax.swing.JTable();
         pegarCpf = new javax.swing.JTextField();
@@ -74,10 +77,10 @@ public class TelasSistema extends javax.swing.JFrame {
         quantProduto = new javax.swing.JTextField();
         adicionarProduto = new javax.swing.JButton();
         scrollPedido = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelaItens = new javax.swing.JTable();
         listaProdutos = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        abaListarPedido = new javax.swing.JPanel();
         listaPedidos = new javax.swing.JButton();
         scrollPedidos = new javax.swing.JScrollPane();
         tabelaPedidos = new javax.swing.JTable();
@@ -89,8 +92,8 @@ public class TelasSistema extends javax.swing.JFrame {
         tabelaCliente.setModel(modeloTabelaCliente);
         tabelaCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaClienteMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabelaClienteMousePressed(evt);
             }
         });
         scrolTabelaCliente.setViewportView(tabelaCliente);
@@ -109,96 +112,116 @@ public class TelasSistema extends javax.swing.JFrame {
         });
 
         excluirCliente.setText("Excluir");
-        excluirCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                excluirClienteMouseClicked(evt);
+        excluirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirClienteActionPerformed(evt);
             }
         });
 
         limparListaClientes.setText("Limpar");
-        limparListaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                limparListaClientesMouseClicked(evt);
+        limparListaClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparListaClientesActionPerformed(evt);
             }
         });
 
         novoCliente.setText("Novo");
-        novoCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                novoClienteMouseClicked(evt);
+        novoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novoClienteActionPerformed(evt);
             }
         });
 
         atualizaCliente.setText("Atualizar");
-        atualizaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                atualizaClienteMouseClicked(evt);
+        atualizaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizaClienteActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout abaClienteLayout = new javax.swing.GroupLayout(abaCliente);
+        abaCliente.setLayout(abaClienteLayout);
+        abaClienteLayout.setHorizontalGroup(
+            abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaClienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrolTabelaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                .addGroup(abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(abaClienteLayout.createSequentialGroup()
+                        .addComponent(scrolTabelaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(abaClienteLayout.createSequentialGroup()
+                        .addGroup(abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, abaClienteLayout.createSequentialGroup()
                                 .addComponent(listarClientes)
                                 .addGap(18, 18, 18)
                                 .addComponent(excluirCliente)
                                 .addGap(18, 18, 18)
                                 .addComponent(limparListaClientes))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, abaClienteLayout.createSequentialGroup()
                                 .addComponent(novoCliente)
                                 .addGap(18, 18, 18)
                                 .addComponent(atualizaCliente))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, abaClienteLayout.createSequentialGroup()
+                                .addGroup(abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(sobrenomeLabel)
                                     .addComponent(nomeLabel)
                                     .addComponent(cpfLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(caixaCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                                     .addComponent(caixaNome)
                                     .addComponent(caixaSobrenome))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrolTabelaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        abaClienteLayout.setVerticalGroup(
+            abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaClienteLayout.createSequentialGroup()
+                .addGroup(abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(abaClienteLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(scrolTabelaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(abaClienteLayout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)))
+                .addGroup(abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listarClientes)
                     .addComponent(excluirCliente)
                     .addComponent(limparListaClientes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cpfLabel)
                     .addComponent(caixaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeLabel)
                     .addComponent(caixaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sobrenomeLabel)
                     .addComponent(caixaSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(abaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(novoCliente)
                     .addComponent(atualizaCliente))
                 .addGap(20, 20, 20))
         );
 
-        jTabbedPane2.addTab("Cliente", jPanel2);
+        jTabbedPane2.addTab("Cliente", abaCliente);
 
         botaoNovoProduto.setText("Novo");
         botaoNovoProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -208,13 +231,6 @@ public class TelasSistema extends javax.swing.JFrame {
         });
 
         descricaoLabel.setText("Descrição: ");
-
-        tabela.setModel(modeloTabela);
-        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaMouseClicked(evt);
-            }
-        });
 
         tabela.setModel(modeloTabela);
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -252,56 +268,56 @@ public class TelasSistema extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout abaProdutoLayout = new javax.swing.GroupLayout(abaProduto);
+        abaProduto.setLayout(abaProdutoLayout);
+        abaProdutoLayout.setHorizontalGroup(
+            abaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaProdutoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(abaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollPanelTabela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(abaProdutoLayout.createSequentialGroup()
+                        .addGroup(abaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(botaoNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(listarProdutos)
                             .addComponent(descricaoLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(abaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(caixaDeTextoDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(editarProduto)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(abaProdutoLayout.createSequentialGroup()
                                 .addComponent(excluirProduto)
                                 .addGap(18, 18, 18)
                                 .addComponent(limparTabela)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        abaProdutoLayout.setVerticalGroup(
+            abaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaProdutoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(scrollPanelTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(abaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listarProdutos)
                     .addComponent(excluirProduto)
                     .addComponent(limparTabela))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(abaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descricaoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(caixaDeTextoDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(abaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoNovoProduto)
                     .addComponent(editarProduto))
                 .addGap(45, 45, 45))
         );
 
-        jTabbedPane2.addTab("Produtos", jPanel3);
+        jTabbedPane2.addTab("Produtos", abaProduto);
 
         tabelaProduto.setModel(modeloTabela);
         tabelaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaProdutoMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabelaProdutoMousePressed(evt);
             }
         });
         scrollProdutoPedido.setViewportView(tabelaProduto);
@@ -309,9 +325,9 @@ public class TelasSistema extends javax.swing.JFrame {
         pegarCpf.setText("Digite CPF");
 
         botaoPesquisar.setText("Pesquisar");
-        botaoPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botaoPesquisarMouseClicked(evt);
+        botaoPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoPesquisarActionPerformed(evt);
             }
         });
 
@@ -320,71 +336,71 @@ public class TelasSistema extends javax.swing.JFrame {
         quantProduto.setText("Quant..");
 
         adicionarProduto.setText("OK");
-        adicionarProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                adicionarProdutoMouseClicked(evt);
+        adicionarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionarProdutoActionPerformed(evt);
             }
         });
 
-        jTable2.setModel(modeloTabelaPedidos);
-        scrollPedido.setViewportView(jTable2);
+        tabelaItens.setModel(modeloTabelaItens);
+        scrollPedido.setViewportView(tabelaItens);
 
         listaProdutos.setText("Listar Produtos");
-        listaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaProdutosMouseClicked(evt);
+        listaProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaProdutosActionPerformed(evt);
             }
         });
 
         jButton2.setText("Excluir Item");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout abaIncluirPedidoLayout = new javax.swing.GroupLayout(abaIncluirPedido);
+        abaIncluirPedido.setLayout(abaIncluirPedidoLayout);
+        abaIncluirPedidoLayout.setHorizontalGroup(
+            abaIncluirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaIncluirPedidoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(abaIncluirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollProdutoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(listaProdutos))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(abaIncluirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(abaIncluirPedidoLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(abaIncluirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(abaIncluirPedidoLayout.createSequentialGroup()
+                                .addGroup(abaIncluirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(exibeNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(74, 74, 74)
                                 .addComponent(quantProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
                                 .addComponent(adicionarProduto))
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(abaIncluirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(scrollPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(abaIncluirPedidoLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(pegarCpf)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        abaIncluirPedidoLayout.setVerticalGroup(
+            abaIncluirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaIncluirPedidoLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(listaProdutos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(abaIncluirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(abaIncluirPedidoLayout.createSequentialGroup()
+                        .addGroup(abaIncluirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pegarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botaoPesquisar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(exibeNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(abaIncluirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(quantProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(adicionarProduto))
@@ -396,7 +412,7 @@ public class TelasSistema extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Incluir Pedido", jPanel4);
+        jTabbedPane2.addTab("Incluir Pedido", abaIncluirPedido);
 
         listaPedidos.setText("Listar pedidos do cliente");
         listaPedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -405,7 +421,7 @@ public class TelasSistema extends javax.swing.JFrame {
             }
         });
 
-        tabelaPedidos.setModel(modeloTabela);
+        tabelaPedidos.setModel(modeloTabelaPedidos);
         scrollPedidos.setViewportView(tabelaPedidos);
 
         cpfClienteListarPedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -416,34 +432,34 @@ public class TelasSistema extends javax.swing.JFrame {
 
         jLabel2.setText("CPF do cliente:");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(scrollPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 415, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cpfClienteListarPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout abaListarPedidoLayout = new javax.swing.GroupLayout(abaListarPedido);
+        abaListarPedido.setLayout(abaListarPedidoLayout);
+        abaListarPedidoLayout.setHorizontalGroup(
+            abaListarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaListarPedidoLayout.createSequentialGroup()
+                .addGroup(abaListarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(scrollPedidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(abaListarPedidoLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cpfClienteListarPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listaPedidos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(299, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        abaListarPedidoLayout.setVerticalGroup(
+            abaListarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaListarPedidoLayout.createSequentialGroup()
+                .addGroup(abaListarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cpfClienteListarPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(listaPedidos))
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 217, Short.MAX_VALUE))
+                .addGap(0, 223, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Listar Pedido", jPanel1);
+        jTabbedPane2.addTab("Listar Pedido", abaListarPedido);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -529,97 +545,6 @@ public class TelasSistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_limparTabelaActionPerformed
 
-    private void novoClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novoClienteMouseClicked
-        try {
-            String cpf = caixaCpf.getText();
-            String nome = caixaNome.getText();
-            String sobrenome = caixaSobrenome.getText();
-
-            Cliente c = new Cliente(0L, cpf, nome, sobrenome);
-            ClienteDAO dao = new ClienteDAO();
-            dao.insere(c);
-            modeloTabelaCliente.adicionaCliente(c);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_novoClienteMouseClicked
-
-    private void excluirClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirClienteMouseClicked
-        ClienteDAO c = new ClienteDAO();
-        int[] linhasSelecionadas = tabelaCliente.getSelectedRows();
-        List<Cliente> listaExcluir = new ArrayList();
-        for (int i = 0; i < linhasSelecionadas.length; i++) {
-            Cliente cliente = modeloTabelaCliente.getCliente(linhasSelecionadas[i]);
-            c.deleta(cliente);
-            listaExcluir.add(cliente);
-        }
-        for (Cliente cliente : listaExcluir) {
-            modeloTabelaCliente.deleteCliente(cliente);
-        }
-
-    }//GEN-LAST:event_excluirClienteMouseClicked
-
-    private void limparListaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparListaClientesMouseClicked
-        modeloTabelaCliente.limparTabela();
-    }//GEN-LAST:event_limparListaClientesMouseClicked
-
-    private void atualizaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atualizaClienteMouseClicked
-        if (linhaSelecionada!=-1) {
-            Cliente cliente = modeloTabelaCliente.getCliente(linhaSelecionada);
-            cliente.setCpf(caixaCpf.getText());
-            cliente.setNome(caixaNome.getText());
-            cliente.setSobrenome(caixaSobrenome.getText());
-
-            ClienteDAO dao = null;
-            dao = new ClienteDAO();
-            dao.atualiza(cliente);
-
-            modeloTabelaCliente.fireTableRowsUpdated(linhaSelecionada, linhaSelecionada);
-        }
-    }//GEN-LAST:event_atualizaClienteMouseClicked
-
-    private void botaoPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoPesquisarMouseClicked
-           String cpf = pegarCpf.getText();             
-           ClienteDAO dao = new ClienteDAO();
-           this.cliente = dao.get(cpf);
-           String nome = this.cliente.getNome();
-           String sobrenome = this.cliente.getSobrenome();            
-           exibeNomeCliente.setText(nome + " " + sobrenome);
-    }//GEN-LAST:event_botaoPesquisarMouseClicked
-
-    private void listaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaProdutosMouseClicked
-        List<Produto> lista = new ProdutoDAO().getLista();
-        modeloTabela.setListaProdutos(lista);
-    }//GEN-LAST:event_listaProdutosMouseClicked
-
-    private void adicionarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarProdutoMouseClicked
-        System.out.println(linhaSelecionada);
-        if (linhaSelecionada != -1) {
-            Produto produto = modeloTabela.getProduto(linhaSelecionada);            ;
-            long quantidade = Long.parseLong(quantProduto.getText());                       
-            LocalDate data = LocalDate.now();         
-            
-            Pedido pedido = new Pedido(data, this.cliente, null);          
-            PedidoDAO daopedido = new PedidoDAO();
-            daopedido.insere(pedido);
-            
-            ItemDoPedido item = new ItemDoPedido(quantidade, produto);           
-            ItemDoPedidoDAO dao = new ItemDoPedidoDAO();           
-            dao.insere(pedido.getId(),item);
-            
-            List<Pedido> lista = new PedidoDAO().getLista();
-            modeloTabelaPedidos.setListaPedidos(lista);  
-       } 
-    }//GEN-LAST:event_adicionarProdutoMouseClicked
-
-    private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMouseClicked
-        this.linhaSelecionada = tabelaCliente.rowAtPoint(evt.getPoint());
-    }//GEN-LAST:event_tabelaClienteMouseClicked
-
-    private void tabelaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutoMouseClicked
-        this.linhaSelecionada = tabelaProduto.rowAtPoint(evt.getPoint());              
-    }//GEN-LAST:event_tabelaProdutoMouseClicked
-
     private void listaPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPedidosActionPerformed
         try {
             PedidoDAO dao = new PedidoDAO();
@@ -651,6 +576,120 @@ public class TelasSistema extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_listarClientesActionPerformed
+
+    private void adicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarProdutoActionPerformed
+        if (linhaSelecionada == -1) return;
+        try {
+            Produto produto = modeloTabela.getProduto(linhaSelecionada);            ;
+            long quantidade = Long.parseLong(quantProduto.getText());                       
+            LocalDate data = LocalDate.now();         
+            
+            Pedido pedido = new Pedido(data, this.cliente, null);          
+            PedidoDAO daopedido = new PedidoDAO();
+            daopedido.insere(pedido);
+            
+            ItemDoPedido item = new ItemDoPedido(quantidade, produto);           
+            ItemDoPedidoDAO dao = new ItemDoPedidoDAO();           
+            dao.insere(pedido.getId(),item);
+            
+            List<Pedido> lista = new PedidoDAO().getLista();
+            modeloTabelaPedidos.setListaPedidos(lista);  
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+    }//GEN-LAST:event_adicionarProdutoActionPerformed
+
+    private void novoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoClienteActionPerformed
+        try {
+            String cpf = caixaCpf.getText();
+            String nome = caixaNome.getText();
+            String sobrenome = caixaSobrenome.getText();
+
+            Cliente c = new Cliente(0L, cpf, nome, sobrenome);
+            ClienteDAO dao = new ClienteDAO();
+            dao.insere(c);
+            modeloTabelaCliente.adicionaCliente(c);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_novoClienteActionPerformed
+
+    private void excluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirClienteActionPerformed
+        try {
+            ClienteDAO c = new ClienteDAO();
+            int[] linhasSelecionadas = tabelaCliente.getSelectedRows();
+            List<Cliente> listaExcluir = new ArrayList();
+            
+            for (int i = 0; i < linhasSelecionadas.length; i++) {
+                Cliente cliente = modeloTabelaCliente.getCliente(linhasSelecionadas[i]);
+                c.deleta(cliente);
+                listaExcluir.add(cliente);
+            }
+            
+            for (Cliente cliente : listaExcluir) {
+                modeloTabelaCliente.deleteCliente(cliente);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_excluirClienteActionPerformed
+
+    private void limparListaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparListaClientesActionPerformed
+        try {
+            modeloTabelaCliente.limparTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_limparListaClientesActionPerformed
+
+    private void atualizaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaClienteActionPerformed
+        if (linhaSelecionada == -1) return;
+        try {
+            Cliente cliente = modeloTabelaCliente.getCliente(linhaSelecionada);
+            cliente.setCpf(caixaCpf.getText());
+            cliente.setNome(caixaNome.getText());
+            cliente.setSobrenome(caixaSobrenome.getText());
+
+            ClienteDAO dao = null;
+            dao = new ClienteDAO();
+            dao.atualiza(cliente);
+
+            modeloTabelaCliente.fireTableRowsUpdated(linhaSelecionada, linhaSelecionada);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_atualizaClienteActionPerformed
+
+    private void botaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarActionPerformed
+        try {
+            ClienteDAO dao = new ClienteDAO();
+            this.cliente = dao.get(pegarCpf.getText());
+            
+            String nome = this.cliente.getNome();
+            String sobrenome = this.cliente.getSobrenome();
+            
+            exibeNomeCliente.setText(nome + " " + sobrenome);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_botaoPesquisarActionPerformed
+
+    private void listaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaProdutosActionPerformed
+        try {
+            List<Produto> lista = new ProdutoDAO().getLista();
+            modeloTabela.setListaProdutos(lista);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_listaProdutosActionPerformed
+
+    private void tabelaClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMousePressed
+        this.linhaSelecionada = tabelaCliente.rowAtPoint(evt.getPoint());
+    }//GEN-LAST:event_tabelaClienteMousePressed
+
+    private void tabelaProdutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutoMousePressed
+        this.linhaSelecionada = tabelaProduto.rowAtPoint(evt.getPoint());
+    }//GEN-LAST:event_tabelaProdutoMousePressed
 
     /**
      * @param args the command line arguments
@@ -697,6 +736,10 @@ public class TelasSistema extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel abaCliente;
+    private javax.swing.JPanel abaIncluirPedido;
+    private javax.swing.JPanel abaListarPedido;
+    private javax.swing.JPanel abaProduto;
     private javax.swing.JButton adicionarProduto;
     private javax.swing.JButton atualizaCliente;
     private javax.swing.JButton botaoNovoProduto;
@@ -716,11 +759,7 @@ public class TelasSistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JButton limparListaClientes;
     private javax.swing.JButton limparTabela;
     private javax.swing.JButton listaPedidos;
@@ -739,6 +778,7 @@ public class TelasSistema extends javax.swing.JFrame {
     private javax.swing.JLabel sobrenomeLabel;
     private javax.swing.JTable tabela;
     private javax.swing.JTable tabelaCliente;
+    private javax.swing.JTable tabelaItens;
     private javax.swing.JTable tabelaPedidos;
     private javax.swing.JTable tabelaProduto;
     // End of variables declaration//GEN-END:variables
