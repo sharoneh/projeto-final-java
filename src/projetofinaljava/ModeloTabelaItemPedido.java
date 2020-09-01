@@ -13,16 +13,16 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author levyc
  */
-public class ModeloTabelaItemPedido extends AbstractTableModel{
-    private String [] colunas=new String[] {"ID","Descricao","Quantidade"};
-    private List<ItemDoPedido> lista = new ArrayList();
+public class ModeloTabelaItemPedido extends AbstractTableModel {
+    private String [] colunas = new String[] { "ID", "Descricao", "Quantidade" };
+    private List<ItemDoPedido> lista;
     
     public ModeloTabelaItemPedido(List<ItemDoPedido> lista){
-        this.lista=lista;
+        this.lista = lista;
     }    
     
-      public ModeloTabelaItemPedido(){
-        
+    public ModeloTabelaItemPedido(){
+        this.lista = new ArrayList();
     }
       
       public int getRowCount(){
@@ -41,19 +41,42 @@ public class ModeloTabelaItemPedido extends AbstractTableModel{
         return false;       
     }
     
-    /*public Object getValueAt(int rowIndex, int columnIndex) {
+    public Object getValueAt(int rowIndex, int columnIndex) {
         ItemDoPedido item = lista.get(rowIndex);        
         switch (columnIndex) {
             case 0:
-                return item.getId();
+                return item.getProduto().getId();
             case 1:
-                return item.getDescricao();
+                return item.getProduto().getDescricao();
             case 2:
                 return item.getQuantidade();            
             default:
                 return null;
         }
-    }*/
+    }
+    
+    @Override
+    public void setValueAt(Object value, int row, int col) {
+        try {
+            ItemDoPedido item = lista.get(row);
+            switch (col) {
+                case 0:
+                    item.getProduto().setId((Long) value);
+                    break;
+                case 1:
+                    item.getProduto().setDescricao((String) value);
+                    break;
+                case 2:
+                    item.setQuantidade((long) value);
+                    break;
+                default:
+                    break;
+            }
+            this.fireTableCellUpdated(row, col);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao atualizar tabela: " + e.getMessage());
+        }
+    }
     
     public boolean deleteItemDoPedido(ItemDoPedido item) {
         int linha = this.lista.indexOf(item);
@@ -61,9 +84,4 @@ public class ModeloTabelaItemPedido extends AbstractTableModel{
         this.fireTableRowsDeleted(linha,linha);
         return result;
     }    
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
