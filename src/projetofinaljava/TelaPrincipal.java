@@ -29,10 +29,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         manterClientes = new javax.swing.JTabbedPane();
         panelCliente1 = new projetofinaljava.PanelCliente();
+        panelProduto1 = new projetofinaljava.PanelProduto();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         manterClientes.addTab("Manter clientes", panelCliente1);
+        manterClientes.addTab("Manter produtos", panelProduto1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -42,7 +44,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(manterClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(manterClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -86,5 +90,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane manterClientes;
     private projetofinaljava.PanelCliente panelCliente1;
+    private projetofinaljava.PanelProduto panelProduto1;
     // End of variables declaration//GEN-END:variables
 }

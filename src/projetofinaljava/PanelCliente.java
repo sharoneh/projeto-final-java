@@ -192,6 +192,13 @@ public class PanelCliente extends javax.swing.JPanel {
     private void limparListaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparListaClientesActionPerformed
         try {
             modeloTabelaCliente.limparTabela();
+            
+            linhaSelecionada = -1;
+            this.clienteSelecionado = null;
+            
+            caixaCpf.setText("");
+            caixaNome.setText("");
+            caixaSobrenome.setText("");
         } catch (Exception e) {
             e.printStackTrace();
         }
