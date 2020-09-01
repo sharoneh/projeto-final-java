@@ -1,5 +1,7 @@
 package projetofinaljava;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
@@ -18,6 +20,8 @@ public class TelasSistema extends javax.swing.JFrame {
     private ModeloTabelaProdutos modeloTabela = new ModeloTabelaProdutos();
     private ModeloTabelaCliente modeloTabelaCliente = new ModeloTabelaCliente();
     private int linhaSelecionada = -1;
+    private Cliente cliente;
+    private ModeloTabelaPedidos modeloTabelaPedidos = new ModeloTabelaPedidos();
 
     /**
      * Creates new form NovaTabelaProduto
@@ -67,20 +71,23 @@ public class TelasSistema extends javax.swing.JFrame {
         botaoPesquisar = new javax.swing.JButton();
         exibeNomeCliente = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        exibeProduto = new javax.swing.JLabel();
+        quantProduto = new javax.swing.JTextField();
+        adicionarProduto = new javax.swing.JButton();
         scrollPedido = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         listaProdutos = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        salvarPedido = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tabelaCliente.setModel(modeloTabelaCliente);
         tabelaCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaClienteMouseClicked(evt);
+            }
+        });
         scrolTabelaCliente.setViewportView(tabelaCliente);
 
         cpfLabel.setText("CPF:");
@@ -123,7 +130,7 @@ public class TelasSistema extends javax.swing.JFrame {
             }
         });
 
-        atualizaCliente.setText("Atualizar (NA)");
+        atualizaCliente.setText("Atualizar");
         atualizaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 atualizaClienteMouseClicked(evt);
@@ -215,6 +222,11 @@ public class TelasSistema extends javax.swing.JFrame {
         });
 
         tabela.setModel(modeloTabela);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         scrollPanelTabela.setViewportView(tabela);
 
         listarProdutos.setText("Listar");
@@ -241,7 +253,7 @@ public class TelasSistema extends javax.swing.JFrame {
             }
         });
 
-        editarProduto.setText("Editar (NA)");
+        editarProduto.setText("Editar");
         editarProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editarProdutoMouseClicked(evt);
@@ -312,6 +324,11 @@ public class TelasSistema extends javax.swing.JFrame {
         jTabbedPane2.addTab("Produtos", jPanel3);
 
         tabelaProduto.setModel(modeloTabela);
+        tabelaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaProdutoMouseClicked(evt);
+            }
+        });
         scrollProdutoPedido.setViewportView(tabelaProduto);
 
         pegarCpf.setText("Digite CPF");
@@ -323,32 +340,23 @@ public class TelasSistema extends javax.swing.JFrame {
             }
         });
 
-        exibeNomeCliente.setText("exibenome");
-
         jLabel1.setText("Produto");
 
-        jTextField1.setText("Quant..");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        quantProduto.setText("Quant..");
+        quantProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                quantProdutoActionPerformed(evt);
             }
         });
 
-        jButton1.setText("OK");
-
-        exibeProduto.setText("exibeproduto");
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        adicionarProduto.setText("OK");
+        adicionarProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adicionarProdutoMouseClicked(evt);
             }
-        ));
+        });
+
+        jTable2.setModel(modeloTabelaPedidos);
         scrollPedido.setViewportView(jTable2);
 
         listaProdutos.setText("Listar Produtos");
@@ -359,8 +367,6 @@ public class TelasSistema extends javax.swing.JFrame {
         });
 
         jButton2.setText("Excluir Item");
-
-        salvarPedido.setText("Salvar");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -380,15 +386,11 @@ public class TelasSistema extends javax.swing.JFrame {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(exibeNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(74, 74, 74)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(quantProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
-                                .addComponent(jButton1))
-                            .addComponent(exibeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel4Layout.createSequentialGroup()
-                                    .addComponent(jButton2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(salvarPedido))
+                                .addComponent(adicionarProduto))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(scrollPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -414,16 +416,12 @@ public class TelasSistema extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(exibeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(quantProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(adicionarProduto))
+                        .addGap(37, 37, 37)
                         .addComponent(scrollPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(salvarPedido)))
+                        .addComponent(jButton2))
                     .addComponent(scrollProdutoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
@@ -516,9 +514,9 @@ public class TelasSistema extends javax.swing.JFrame {
     }//GEN-LAST:event_excluirProdutoMouseClicked
 
     private void editarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarProdutoMouseClicked
-        if (linhaSelecionada != -1) {
+        if (linhaSelecionada!=-1) {
             Produto produto = modeloTabela.getProduto(linhaSelecionada);
-            produto.setDescricao(caixaDeTextoDescricao.getText());
+            produto.setDescricao(caixaDeTextoDescricao.getText());            
             ProdutoDAO dao = null;
             dao = new ProdutoDAO();
             dao.atualiza(produto);
@@ -579,7 +577,7 @@ public class TelasSistema extends javax.swing.JFrame {
     }//GEN-LAST:event_limparListaClientesMouseClicked
 
     private void atualizaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atualizaClienteMouseClicked
-        if (linhaSelecionada != -1) {
+        if (linhaSelecionada!=-1) {
             Cliente cliente = modeloTabelaCliente.getCliente(linhaSelecionada);
             cliente.setCpf(caixaCpf.getText());
             cliente.setNome(caixaNome.getText());
@@ -589,15 +587,15 @@ public class TelasSistema extends javax.swing.JFrame {
             dao = new ClienteDAO();
             dao.atualiza(cliente);
 
-            modeloTabela.fireTableRowsUpdated(linhaSelecionada, linhaSelecionada);
+            modeloTabelaCliente.fireTableRowsUpdated(linhaSelecionada, linhaSelecionada);
         }
 
 
     }//GEN-LAST:event_atualizaClienteMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void quantProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantProdutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_quantProdutoActionPerformed
 
     private void listaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaProdutosMouseClicked
         List<Produto> lista = new ProdutoDAO().getLista();
@@ -606,9 +604,52 @@ public class TelasSistema extends javax.swing.JFrame {
     }//GEN-LAST:event_listaProdutosMouseClicked
 
     private void botaoPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoPesquisarMouseClicked
-                            
-        
+           String cpf = pegarCpf.getText();             
+           ClienteDAO dao = new ClienteDAO();
+           this.cliente = dao.get(cpf);
+           String nome = this.cliente.getNome();
+           String sobrenome = this.cliente.getSobrenome();            
+           exibeNomeCliente.setText(nome + " " + sobrenome);
+                      
+           
     }//GEN-LAST:event_botaoPesquisarMouseClicked
+
+    private void adicionarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarProdutoMouseClicked
+        System.out.println(linhaSelecionada);
+        if (linhaSelecionada != -1) {
+            Produto produto = modeloTabela.getProduto(linhaSelecionada);            ;
+            long quantidade = Long.parseLong(quantProduto.getText());                       
+            LocalDate data = LocalDate.now();         
+            
+            Pedido pedido = new Pedido(data, this.cliente, null);          
+            PedidoDAO daopedido = new PedidoDAO();
+            daopedido.insere(pedido);
+            
+            ItemDoPedido item = new ItemDoPedido(quantidade, produto);           
+            ItemDoPedidoDAO dao = new ItemDoPedidoDAO();           
+            dao.insere(pedido.getId(),item);
+            
+            List<Pedido> lista = new PedidoDAO().getLista();
+            modeloTabelaPedidos.setListaPedidos(lista);  
+            
+       } 
+                
+        
+        
+    }//GEN-LAST:event_adicionarProdutoMouseClicked
+
+    private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMouseClicked
+        this.linhaSelecionada = tabelaCliente.rowAtPoint(evt.getPoint());
+        
+    }//GEN-LAST:event_tabelaClienteMouseClicked
+
+    private void tabelaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutoMouseClicked
+        this.linhaSelecionada = tabelaProduto.rowAtPoint(evt.getPoint());              
+    }//GEN-LAST:event_tabelaProdutoMouseClicked
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        this.linhaSelecionada = tabelaProduto.rowAtPoint(evt.getPoint());
+    }//GEN-LAST:event_tabelaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -655,6 +696,7 @@ public class TelasSistema extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton adicionarProduto;
     private javax.swing.JButton atualizaCliente;
     private javax.swing.JButton botaoNovoProduto;
     private javax.swing.JButton botaoPesquisar;
@@ -668,8 +710,6 @@ public class TelasSistema extends javax.swing.JFrame {
     private javax.swing.JButton excluirCliente;
     private javax.swing.JButton excluirProduto;
     private javax.swing.JLabel exibeNomeCliente;
-    private javax.swing.JLabel exibeProduto;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -678,7 +718,6 @@ public class TelasSistema extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton limparListaClientes;
     private javax.swing.JButton limparTabela;
     private javax.swing.JButton listaProdutos;
@@ -687,7 +726,7 @@ public class TelasSistema extends javax.swing.JFrame {
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JButton novoCliente;
     private javax.swing.JTextField pegarCpf;
-    private javax.swing.JButton salvarPedido;
+    private javax.swing.JTextField quantProduto;
     private javax.swing.JScrollPane scrolTabelaCliente;
     private javax.swing.JScrollPane scrollPanelTabela;
     private javax.swing.JScrollPane scrollPedido;

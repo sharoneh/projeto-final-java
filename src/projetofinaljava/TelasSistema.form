@@ -152,6 +152,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaClienteMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -213,7 +216,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="atualizaCliente">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Atualizar (NA)"/>
+                <Property name="text" type="java.lang.String" value="Atualizar"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="atualizaClienteMouseClicked"/>
@@ -321,6 +324,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -344,7 +350,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="editarProduto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Editar (NA)"/>
+                <Property name="text" type="java.lang.String" value="Editar"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="editarProdutoMouseClicked"/>
@@ -390,17 +396,12 @@
                                           <Component id="exibeNomeCliente" min="-2" pref="188" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                                      <Component id="jTextField1" min="-2" pref="57" max="-2" attributes="0"/>
+                                      <Component id="quantProduto" min="-2" pref="57" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="adicionarProduto" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="exibeProduto" min="-2" pref="164" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="salvarPedido" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="jButton2" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="scrollPedido" min="-2" pref="360" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -434,18 +435,13 @@
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel1" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="quantProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="adicionarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="exibeProduto" min="-2" pref="25" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                               <Component id="scrollPedido" min="-2" pref="206" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="salvarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="scrollProdutoPedido" min="-2" pref="393" max="-2" attributes="0"/>
                       </Group>
@@ -465,6 +461,9 @@
                       <Connection code="modeloTabela" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaProdutoMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -482,32 +481,27 @@
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="exibeNomeCliente">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="exibenome"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Produto"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
+            <Component class="javax.swing.JTextField" name="quantProduto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quant.."/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quantProdutoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="adicionarProduto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="OK"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="exibeProduto">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="exibeproduto"/>
-              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adicionarProdutoMouseClicked"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="scrollPedido">
 
@@ -515,13 +509,8 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="jTable2">
                   <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="4">
-                        <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 4" type="java.lang.Object"/>
-                      </Table>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="modeloTabelaPedidos" type="code"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -538,11 +527,6 @@
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Excluir Item"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="salvarPedido">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
             </Component>
           </SubComponents>
