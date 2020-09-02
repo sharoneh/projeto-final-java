@@ -5,18 +5,17 @@
  */
 package projetofinaljava;
 
+import java.util.List;
+
 /**
  *
  * @author sharonhasegawa
+ * @param <T>
  */
-public class ProjetoFinalJava {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("hello world");
-    }
-    
+public interface DAO<T> {
+    T get(long id);
+    List<T> getLista();
+    void insere(T t);
+    void atualiza(T t);
+    void deleta(T t);
 }

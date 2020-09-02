@@ -13,23 +13,30 @@ import java.util.List;
  * @author sharonhasegawa
  */
 public class Pedido {
-    private int id;
+    private long id;
     private LocalDate data;
     private Cliente cliente;
     private List<ItemDoPedido> itens;
-
-    public Pedido(int id, LocalDate data, Cliente cliente, List<ItemDoPedido> itens) {
+    
+    public Pedido(LocalDate data, Cliente cliente, List<ItemDoPedido> itens) {
+        this.id = -1L;
+        this.data = data;
+        this.cliente = cliente;
+        this.itens = itens;
+    }
+    
+    public Pedido(long id, LocalDate data, Cliente cliente, List<ItemDoPedido> itens) {
         this.id = id;
         this.data = data;
         this.cliente = cliente;
         this.itens = itens;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

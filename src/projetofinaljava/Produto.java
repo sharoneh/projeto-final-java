@@ -10,27 +10,34 @@ package projetofinaljava;
  * @author sharonhasegawa
  */
 public class Produto {
-    private int id;
-    private String descricao;
+
+    private long id;
+    private String descricao;  
     
-    public void Produto(int id, String descricao) {
+    public Produto(String descricao) {        
+        this.descricao = descricao;
+    } 
+    
+    public Produto(long id, String descricao) {
         this.id = id;
         this.descricao = descricao;
+    }    
+
+    public long getId() {
+        return id;
     }
-    
-    public int getId() {
-        return this.id;
-    }
-    
-    public String getDescricao() {
-        return this.descricao;
-    }
-    
-    public void setId(int id) {
+
+    public void setId(long id) {
         this.id = id;
     }
-    
+
+    public String getDescricao() {
+        return descricao;
+    }
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+      
 }
+   
